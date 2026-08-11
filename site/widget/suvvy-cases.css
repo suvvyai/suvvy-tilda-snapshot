@@ -12,6 +12,9 @@
 
   background: #F1F5FB;
   padding: 64px 0;
+  /* Воздух между белым блоком с буллитами и серой секцией — иначе серое
+     начинается почти вплотную к тексту (было ~17px). */
+  margin-top: 72px;
   font-family: 'Onest', Arial, sans-serif;
   color: var(--ink-900);
   -webkit-font-smoothing: antialiased;
@@ -126,6 +129,6 @@
 }
 
 @media (max-width: 560px) {
-  #shw-cases { padding: 44px 0; }
+  #shw-cases { padding: 44px 0; margin-top: 40px; }
   #shw-cases .cres { flex-basis: 84vw; }
 }
