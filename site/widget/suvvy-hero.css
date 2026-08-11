@@ -1,0 +1,529 @@
+/* Suvvy hero widget — автосборка из astro/src/styles/sections.css (build_css.py). Не править руками. */
+.shw-root {
+  --suvvy-ink-900: #11253E;
+  --suvvy-ink-700: #5E748D;
+  --suvvy-ink-500: #8695A7;
+  --suvvy-border: #D9DEE4;
+  --suvvy-border-soft: #E1E6EC;
+  --suvvy-accent-blue: #3520FC;
+  --ease: cubic-bezier(0.2, 0, 0, 1);
+  --duration-base: 180ms;
+  /* Шрифт — тильдовский (Onest), как на остальном сайте. */
+  font-family: 'Onest', Arial, sans-serif;
+  color: var(--suvvy-ink-900);
+  -webkit-font-smoothing: antialiased;
+}
+.shw-root *, .shw-root *::before, .shw-root *::after { box-sizing: border-box; }
+.shw-root button { font: inherit; color: inherit; }
+
+/* ── Right: combined panel (sol-card) + overlapping chat ── */
+.shw-root .hero__visual { padding-top: 0; }
+.shw-root .combo { position: relative; display: flow-root; }
+
+.shw-root .sol-card {
+  position: relative;
+  margin-top: 40px;            /* panel sits lower; chat sticks up higher */
+  min-height: 500px;
+  background: rgba(219, 232, 246, 0.5);
+  border-radius: 28px;
+  padding: 28px 28px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+/* panel content fills the (narrow) panel; chat overlaps & extends past its right edge */
+.shw-root .sol-card > * { max-width: 100%; }
+/* vertical divider between the list column and the chat */
+.shw-root .sol-card::after {
+  content: "";
+  position: absolute;
+  top: 36px;
+  bottom: 36px;
+  left: 250px;
+  width: 1px;
+  background: rgba(17, 37, 62, 0.10);
+}
+
+/* Overlapping chat — aligned to the right edge (under «Войти»), sticks up above the panel */
+.shw-root .combo__chat {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 363px;
+  z-index: 2;
+}
+.shw-root .combo__chat .chatcard { width: 100%; }
+
+/* Текст / Голос segmented toggle */
+.shw-root .seg {
+  align-self: flex-start;
+  display: inline-flex;
+  gap: 4px;
+  padding: 5px;
+  background: #fff;
+  border-radius: 14px;
+}
+.shw-root .seg__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 16px;
+  border: none;
+  background: transparent;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #5E748D;
+  cursor: pointer;
+  transition: background var(--duration-base) var(--ease), color var(--duration-base) var(--ease);
+}
+.shw-root .seg__btn svg { width: 16px; height: 16px; flex-shrink: 0; }
+.shw-root .seg__btn.is-active {
+  background: var(--suvvy-ink-900);
+  color: #fff;
+}
+
+/* Список сценариев */
+.shw-root .sol-card__list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+.shw-root .sol-card__item {
+  position: relative;
+  padding: 12px 0;
+  font-size: 15px;
+  font-weight: 500;
+  color: #5E748D;
+  cursor: pointer;
+  transition: color var(--duration-base) var(--ease);
+}
+.shw-root .sol-card__item.is-active {
+  color: var(--suvvy-ink-900);
+  font-weight: 700;
+}
+/* Активная вертикальная чёрточка — высотой в строку, у правого края */
+.shw-root .sol-card__marker {
+  position: absolute;
+  right: -1px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 3px;
+  height: 1.25em;
+  border-radius: 90px;
+  background: var(--suvvy-ink-900);
+}
+
+/* Каналы 28px */
+.shw-root .sol-card__channels {
+  display: grid;
+  grid-template-columns: repeat(4, 28px);
+  gap: 18px 28px;
+  justify-content: start;
+  margin-top: 6px;
+}
+.shw-root .sol-channel {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+}
+.shw-root .sol-channel--tg { padding: 0; }
+.shw-root .sol-channel--tg svg { width: 28px; height: 28px; display: block; }
+
+/* ── Right: chat preview — 1:1 по Figma ── */
+.shw-root .hero__chat { padding-top: 12px; }
+.shw-root .chatcard {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 13px;
+  padding: 16px 20px;
+  border-radius: 14px;
+  background: #FFF;
+  border: 1px solid #ECECF6;
+  box-shadow: 0 30px 70px -28px rgba(17,37,62,0.22),
+              0 4px 18px -8px rgba(17,37,62,0.06);
+}
+
+/* Header */
+.shw-root .chatcard__head {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding-bottom: 13px;
+  border-bottom: 1px solid #E1E6EC;
+}
+.shw-root .chatcard__avatar {
+  position: relative;
+  width: 44px; height: 44px;
+  border-radius: 12px;
+  background: #F0F4FA;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.shw-root .chatcard__avatar-dot {
+  position: absolute;
+  right: -2px; top: -2px;
+  width: 11px; height: 11px;
+  border-radius: 50%;
+  background: #14B825;
+  border: 2px solid #fff;
+}
+.shw-root .chatcard__title { font-weight: 700; font-size: 18px; color: var(--suvvy-ink-900); line-height: 1.2; }
+.shw-root .chatcard__sub { font-size: 15px; color: #8695A7; margin-top: 3px; }
+
+/* Live feed — FIXED height so the card never changes size */
+.shw-root .chatcard__feed {
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+/* ═══════════ Голосовой режим ═══════════ */
+.shw-root .voicecall {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  min-height: 0;
+  gap: 12px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-right: 4px;            /* breathing room for the scrollbar */
+  scrollbar-width: thin;
+  scrollbar-color: var(--suvvy-border-strong, #c3cdd9) transparent;
+}
+.shw-root .voicecall::-webkit-scrollbar { width: 6px; }
+.shw-root .voicecall::-webkit-scrollbar-thumb {
+  background: var(--suvvy-border-strong, #c3cdd9);
+  border-radius: 90px;
+}
+.shw-root .voicecall::-webkit-scrollbar-track { background: transparent; }
+.shw-root .voicecall__feed {
+  flex: 0 0 auto;               /* natural height; the card itself scrolls */
+  height: auto;
+  overflow: visible;
+  min-height: 0;
+}
+
+/* Живая плашка звонка */
+.shw-root .voicebar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #fff;
+  border: 1px solid var(--suvvy-border-soft);
+  border-radius: 90px;
+  padding: 8px 8px 8px 16px;
+  box-shadow: 0 8px 24px -12px rgba(17, 37, 62, 0.18);
+  flex-shrink: 0;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
+.shw-root .voicebar__eq {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  height: 16px;
+  color: var(--suvvy-ink-900);
+}
+.shw-root .voicebar__eq i {
+  width: 2.5px;
+  border-radius: 2px;
+  background: currentColor;
+  animation: voiceEq 900ms ease-in-out infinite;
+}
+.shw-root .voicebar__eq i:nth-child(1) { height: 7px;  animation-delay: 0ms; }
+.shw-root .voicebar__eq i:nth-child(2) { height: 14px; animation-delay: 150ms; }
+.shw-root .voicebar__eq i:nth-child(3) { height: 9px;  animation-delay: 300ms; }
+.shw-root .voicebar__eq i:nth-child(4) { height: 12px; animation-delay: 450ms; }
+@keyframes voiceEq {
+  0%, 100% { transform: scaleY(0.5); }
+  50%      { transform: scaleY(1); }
+}
+.shw-root .voicebar__status {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--suvvy-ink-900);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.shw-root .voicebar__dots {
+  display: inline-flex;
+  gap: 3px;
+  margin-left: auto;
+}
+.shw-root .voicebar__dots i {
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: var(--suvvy-success-600, #14B825);
+  animation: voiceDot 1.2s ease-in-out infinite;
+}
+.shw-root .voicebar__dots i:nth-child(2) { animation-delay: 200ms; }
+.shw-root .voicebar__dots i:nth-child(3) { animation-delay: 400ms; }
+@keyframes voiceDot {
+  0%, 100% { opacity: 0.3; }
+  50%      { opacity: 1; }
+}
+.shw-root .voicebar__timer {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--suvvy-ink-900);
+  font-variant-numeric: tabular-nums;
+}
+.shw-root .voicebar__hangup {
+  width: 38px; height: 38px;
+  flex-shrink: 0;
+  border: none;
+  border-radius: 50%;
+  background: #E5352F;
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.shw-root .voicebar__hangup svg { width: 18px; height: 18px; }
+.shw-root .voicebar__hangup:hover { background: #cf2a25; }
+
+/* Блок «Звонок окончен» + плеер */
+.shw-root .callend {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  background: #fff;
+  border: 1px solid var(--suvvy-border-soft);
+  border-radius: 16px;
+  padding: 24px;
+  animation: msgIn 360ms var(--ease) both;
+}
+.shw-root .callend__head {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+.shw-root .callend__avatar {
+  width: 48px; height: 48px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: #8695A7;
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.shw-root .callend__avatar svg { width: 22px; height: 22px; }
+.shw-root .callend__title {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--suvvy-ink-900);
+  margin-bottom: 4px;
+}
+.shw-root .callend__sub {
+  font-size: 14px;
+  line-height: 1.45;
+  color: var(--suvvy-ink-500);
+}
+
+.shw-root .audioplayer {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: var(--suvvy-bg-soft, #F0F4FA);
+  border-radius: 90px;
+  padding: 10px 18px 10px 10px;
+}
+.shw-root .audioplayer__play {
+  width: 44px; height: 44px;
+  flex-shrink: 0;
+  border: none;
+  border-radius: 50%;
+  background: #fff;
+  color: var(--suvvy-ink-900);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px -2px rgba(17, 37, 62, 0.18);
+}
+.shw-root .audioplayer__play svg { width: 17px; height: 17px; }
+.shw-root .audioplayer__wave {
+  flex: 1 1 auto;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  height: 28px;
+  overflow: hidden;
+}
+.shw-root .audioplayer__wave i {
+  flex: 1 1 auto;
+  min-width: 2px;
+  border-radius: 2px;
+  background: var(--suvvy-ink-400, #99A6B5);
+  height: 30%;
+}
+.shw-root .audioplayer__wave i:nth-child(3n) { height: 70%; }
+.shw-root .audioplayer__wave i:nth-child(4n) { height: 45%; }
+.shw-root .audioplayer__wave i:nth-child(5n) { height: 90%; }
+.shw-root .audioplayer__wave i:nth-child(7n) { height: 55%; }
+.shw-root .audioplayer__wave.is-playing i {
+  background: var(--suvvy-ink-700, #5E748D);
+  animation: voiceEq 700ms ease-in-out infinite;
+}
+.shw-root .audioplayer__wave.is-playing i:nth-child(2n) { animation-delay: 120ms; }
+.shw-root .audioplayer__wave.is-playing i:nth-child(3n) { animation-delay: 240ms; }
+.shw-root .audioplayer__wave.is-playing i:nth-child(4n) { animation-delay: 360ms; }
+.shw-root .audioplayer__time {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--suvvy-ink-700, #5E748D);
+  font-variant-numeric: tabular-nums;
+  flex-shrink: 0;
+}
+.shw-root .audioplayer__dl {
+  border: none;
+  background: transparent;
+  color: var(--suvvy-ink-700, #5E748D);
+  display: inline-flex;
+  align-items: center;
+  padding: 4px;
+  flex-shrink: 0;
+}
+.shw-root .audioplayer__dl svg { width: 18px; height: 18px; }
+.shw-root .audioplayer__dl:hover { color: var(--suvvy-ink-900); }
+@media (prefers-reduced-motion: reduce) {
+  .shw-root .voicebar__eq i, .shw-root .voicebar__dots i, .shw-root .audioplayer__wave.is-playing i { animation: none; }
+}
+
+/* Entrance animation (used by typing indicator only) */
+.shw-root .typing {
+  animation: msgIn 360ms var(--ease) both;
+}
+@keyframes msgIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* Green "typing" indicator */
+.shw-root .typing {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.shw-root .typing__dots { display: inline-flex; gap: 4px; }
+.shw-root .typing__dots i {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: #14B825;
+  animation: typingPulse 1s infinite ease-in-out;
+}
+.shw-root .typing__dots i:nth-child(2) { animation-delay: 0.15s; }
+.shw-root .typing__dots i:nth-child(3) { animation-delay: 0.3s; }
+.shw-root .typing__wave {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  height: 14px;
+  color: #14B825;
+}
+.shw-root .typing__wave i {
+  width: 3px;
+  border-radius: 2px;
+  background: currentColor;
+  height: 100%;
+  animation: voiceEq 800ms ease-in-out infinite;
+}
+.shw-root .typing__wave i:nth-child(1) { animation-delay: 0ms; }
+.shw-root .typing__wave i:nth-child(2) { animation-delay: 150ms; }
+.shw-root .typing__wave i:nth-child(3) { animation-delay: 300ms; }
+.shw-root .typing__wave i:nth-child(4) { animation-delay: 450ms; }
+.shw-root .typing__label { color: #14B825; font-weight: 600; font-size: 13px; }
+@keyframes typingPulse {
+  0%, 100% { opacity: 0.35; transform: scale(0.8); }
+  40%      { opacity: 1;    transform: scale(1); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .shw-root .msg, .shw-root .typing { animation: none; }
+  .shw-root .typing__dots i { animation: none; opacity: 1; }
+  .shw-root .typing__wave i { animation: none; }
+}
+
+/* Messages */
+.shw-root .msg { display: flex; flex-direction: column; gap: 8px; animation: msgIn 360ms var(--ease) both; }
+.shw-root .msg__head { display: flex; align-items: center; gap: 10px; }
+.shw-root .msg__avatar {
+  width: 30px; height: 30px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 14px;
+  flex-shrink: 0;
+}
+.shw-root .msg__avatar--client {
+  background: #E9E7FD;
+  color: #5B4FE0;
+}
+.shw-root .msg__avatar--bot {
+  background: transparent;
+}
+.shw-root .msg__name { font-size: 16px; color: var(--suvvy-ink-900); font-weight: 700; }
+.shw-root .msg__bubble {
+  padding: 13px 18px;
+  border-radius: 14px;
+  border-top-left-radius: 6px;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--suvvy-ink-900);
+}
+/* Client — white, bordered, indented under the name */
+.shw-root .msg--client .msg__bubble {
+  margin-left: 40px;
+  background: #FFF;
+  border: 1px solid #E1E6EC;
+}
+/* Bot — single lavender-grey block: logo + name + text together */
+.shw-root .botblock {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 16px 18px;
+  border-radius: 16px;
+  background: #EFF1F8;
+}
+.shw-root .botblock__head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.shw-root .botblock__mark { display: inline-flex; flex-shrink: 0; }
+.shw-root .botblock__name { font-size: 16px; font-weight: 700; color: var(--suvvy-ink-900); }
+.shw-root .botblock__text { font-size: 14px; line-height: 1.5; color: var(--suvvy-ink-900); }
+
+
+/* ── Правки порта под Тильду ───────────────────────────────────────────
+   Панель, разделитель, каналы и список сценариев берём тильдовские —
+   от астро-виджета переносим только интерактив: чат-карточку и Текст/Голос. */
+
+/* Корни виджета позиционируются JS'ом по геометрии тильдовских элементов. */
+.shw-root { position: absolute; z-index: 5; }
+#shw-chat { display: flex; }
+#shw-chat .chatcard { width: 100%; height: 100%; }
+
+/* Список сценариев остаётся тильдовским — только делаем его кликабельным. */
+.shw-tab-hit { cursor: pointer; }
+
+/* Текст/Голос: сегмент-контрол вместо статичной картинки Тильды. */
+#shw-seg .seg { width: 100%; height: 100%; }
+#shw-seg .seg__btn { flex: 1 1 0; justify-content: center; }
