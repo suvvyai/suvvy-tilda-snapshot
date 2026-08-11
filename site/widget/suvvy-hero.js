@@ -322,6 +322,7 @@
   var tabEls = [];
   function syncTabs() {
     tabEls.forEach(function (t, i) {
+      if (!t) return;
       var a = t.querySelector('.active'), d = t.querySelector('.default');
       if (a) a.style.opacity = i === state.active ? '1' : '0';
       if (d) d.style.opacity = i === state.active ? '0' : '1';
@@ -386,11 +387,17 @@
 
     // Список сценариев Тильды делаем кликабельным (визуал и шрифт — тильдовские).
     if (list) {
-      tabEls = [].slice.call(list.querySelectorAll('.tn-elem'))
-        .filter(function (n) { return (n.innerText || '').trim().length > 1; });
-      tabEls.forEach(function (t, i) {
-        t.classList.add('shw-tab-hit');
-        t.addEventListener('click', function () {
+      // Сопоставляем по тексту, а не по порядку: в блоке есть лишние элементы,
+      // и клик по ним при индексной привязке уводил бы за пределы списка сценариев.
+      var norm = function (s) { return (s || '').replace(/\s+/g, ' ').trim().toLowerCase(); };
+      tabEls = [];
+      [].forEach.call(list.querySelectorAll('.tn-elem'), function (n) {
+        var t = norm(n.innerText);
+        var i = SCENARIOS.map(function (s) { return norm(s.label); }).indexOf(t);
+        if (i < 0) return;
+        tabEls[i] = n;
+        n.classList.add('shw-tab-hit');
+        n.addEventListener('click', function () {
           if (state.active === i) return;
           state.active = i;
           render();
