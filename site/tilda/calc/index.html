@@ -1,0 +1,867 @@
+<!DOCTYPE html><html lang="ru"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Сколько теряет ваш отдел продаж?</title><meta name="description" content="4 шага — и вы получите детальный отчёт с расчётом потерь и планом, как их вернуть"><meta name="robots" content="noindex, nofollow"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Onest:wght@100..900&display=swap" rel="stylesheet"><link rel="stylesheet" href="/t/css/tilda-grid-3.0.min.css"><link rel="stylesheet" href="/t/css/tilda-blocks-page146182716.min.css"><script src="/t/js/tilda-polyfill-1.0.min.js"></script><script src="/t/js/jquery-1.10.2.min.js"></script><script src="/t/js/tilda-scripts-3.0.min.js"></script><script src="/t/js/tilda-blocks-page146182716.min.js"></script><script src="/t/js/lazyload-1.3.min.export.js"></script><script src="/t/js/tilda-events-1.0.min.js"></script></head> <body class="t-body" style="margin:0;">  <div id="allrecords" class="t-records"> <div id="rec2369892001" class="r t-rec" style=" " data-animationappear="off" data-record-type="131"> <!-- T123 --> <div class="t123"> <div class="t-container_100 "> <div class="t-width t-width_100 "> <!-- nominify begin --> <!DOCTYPE html> <html lang="ru"> <head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>Сколько теряет ваш отдел продаж</title> <style>
+@import url('https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700;800&display=swap');
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+  --blue:#3739cf;
+  --blue-light:#eeeffe;
+  --blue-dark:#2a2bb8;
+  --dark:#11253e;
+  --red:#e63946;
+  --red-light:#fff0f1;
+  --green:#1a9e5f;
+  --green-light:#eaf7f1;
+  --yellow:#f0a500;
+  --yellow-light:#fff7e6;
+  --gray:#637180;
+  --gray-light:#f5f7fa;
+  --gray-mid:#aab3bd;
+  --border:#e2e6ed;
+  --white:#ffffff;
+  --r:16px;
+}
+
+body{
+  font-family:'Onest',Arial,sans-serif;
+  background:var(--white);
+  color:var(--dark);
+  -webkit-font-smoothing:antialiased;
+}
+
+.calc-wrap{
+  max-width:680px;
+  margin:0 auto;
+  padding:48px 16px 48px;
+}
+
+/* Progress */
+.progress-bar{
+  display:flex;
+  align-items:center;
+  gap:6px;
+  margin-bottom:32px;
+}
+.progress-step{
+  flex:1;
+  height:4px;
+  background:var(--border);
+  border-radius:99px;
+  transition:background .3s;
+}
+.progress-step.active{background:var(--blue)}
+.progress-step.done{background:var(--blue);opacity:.4}
+.progress-label{
+  font-size:12px;
+  font-weight:500;
+  color:var(--gray);
+  white-space:nowrap;
+}
+
+/* Screens */
+.screen{
+  display:none;
+  opacity:0;
+  transition:opacity .2s ease;
+}
+.screen.visible{opacity:1}
+
+.screen-title{
+  font-size:24px;
+  font-weight:700;
+  line-height:1.3;
+  color:var(--dark);
+  margin-bottom:8px;
+}
+@media(min-width:480px){.screen-title{font-size:28px}}
+
+.screen-sub{
+  font-size:14px;
+  color:var(--gray);
+  line-height:1.5;
+  margin-bottom:24px;
+}
+
+/* Option cards */
+.options{display:flex;flex-direction:column;gap:12px}
+
+.option-card{
+  display:flex;
+  align-items:center;
+  gap:14px;
+  padding:18px 20px;
+  border:2px solid var(--border);
+  border-radius:var(--r);
+  cursor:pointer;
+  font-size:16px;
+  font-weight:500;
+  color:var(--dark);
+  background:var(--white);
+  text-align:left;
+  width:100%;
+  min-height:56px;
+  transition:border-color .15s,background .15s,transform .1s;
+  -webkit-tap-highlight-color:transparent;
+  font-family:'Onest',Arial,sans-serif;
+}
+.option-card:hover{border-color:var(--blue);background:var(--blue-light)}
+.option-card:active{transform:scale(.98)}
+.option-card.selected{border-color:var(--blue);background:var(--blue-light)}
+.option-card .ic{font-size:22px;flex-shrink:0}
+.option-card .chk{
+  margin-left:auto;
+  width:22px;height:22px;
+  border:2px solid var(--border);
+  border-radius:6px;
+  flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  font-size:14px;color:var(--white);font-weight:700;
+}
+.option-card.selected .chk{background:var(--blue);border-color:var(--blue);}
+.option-card.selected .chk::after{content:'✓'}
+.option-card .star{color:var(--gray-mid);font-weight:700;margin-left:4px;}
+
+/* Number inputs */
+.field-group{margin-bottom:18px}
+.field-label{
+  display:flex;justify-content:space-between;align-items:baseline;
+  font-size:13px;font-weight:600;color:var(--dark);margin-bottom:8px;
+}
+.field-label .hint{font-size:12px;font-weight:500;color:var(--gray);}
+.num-input,.text-input{
+  width:100%;padding:16px 18px;
+  border:2px solid var(--border);border-radius:var(--r);
+  font-family:'Onest',Arial,sans-serif;font-size:18px;font-weight:700;color:var(--dark);
+  background:var(--white);
+  transition:border-color .15s;
+  -webkit-appearance:none;-moz-appearance:textfield;
+}
+.text-input{font-size:16px;font-weight:500;}
+.num-input::-webkit-outer-spin-button,
+.num-input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0;}
+.num-input:focus,.text-input:focus{outline:none;border-color:var(--blue);}
+.input-wrap{position:relative;}
+.input-wrap .suffix{
+  position:absolute;right:18px;top:50%;transform:translateY(-50%);
+  font-size:16px;font-weight:600;color:var(--gray);pointer-events:none;
+}
+.num-input.has-suffix{padding-right:48px;}
+
+.chips{
+  display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;
+}
+.chip{
+  padding:6px 12px;font-size:12px;font-weight:600;color:var(--blue);
+  background:var(--blue-light);border:1px solid transparent;border-radius:99px;
+  cursor:pointer;font-family:'Onest',Arial,sans-serif;
+  transition:background .15s,border-color .15s;
+}
+.chip:hover{background:#e1e2fc;border-color:var(--blue);}
+
+.field-error{font-size:12px;color:var(--red);margin-top:6px;display:none;}
+.field-error.show{display:block;}
+
+.multi-actions{margin-top:18px;display:flex;justify-content:flex-end;}
+.btn-next{
+  padding:14px 28px;background:var(--blue);color:#ffffff !important;
+  font-family:'Onest',Arial,sans-serif;font-size:15px;font-weight:700;
+  border:none;border-radius:var(--r);cursor:pointer;
+  transition:background .15s,transform .1s,opacity .15s;
+}
+.btn-next:hover{background:var(--blue-dark)}
+.btn-next:disabled{opacity:.4;cursor:not-allowed;}
+
+/* CTA */
+.cta-btn{
+  display:block;width:100%;padding:18px 24px;
+  background:var(--blue);color:#ffffff !important;
+  font-family:'Onest',Arial,sans-serif;font-size:17px;font-weight:700;
+  text-align:center;border-radius:var(--r);border:none;cursor:pointer;
+  text-decoration:none !important;
+  transition:background .15s,transform .1s;margin-bottom:10px;
+}
+.cta-btn:hover{background:var(--blue-dark)}
+.cta-btn:active{transform:scale(.98)}
+.cta-btn.secondary{
+  background:var(--white);color:var(--blue) !important;
+  border:2px solid var(--blue);
+}
+.cta-btn.secondary:hover{background:var(--blue-light)}
+
+/* Hero header */
+.calc-header{
+  text-align:center;
+  margin-bottom:32px;
+}
+.calc-header .badge{
+  display:inline-block;background:var(--blue-light);color:var(--blue);
+  font-size:12px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;
+  border-radius:99px;padding:5px 14px;margin-bottom:14px;
+}
+.calc-header h1{
+  font-size:26px;font-weight:800;line-height:1.25;color:var(--dark);margin-bottom:10px;
+}
+@media(min-width:480px){.calc-header h1{font-size:32px}}
+.calc-header p{
+  font-size:15px;color:var(--gray);line-height:1.5;max-width:440px;margin:0 auto;
+}
+
+/* ============================================================
+   REPORT (document-style)
+   ============================================================ */
+.report{
+  background:var(--white);
+  border:1px solid var(--border);
+  border-radius:var(--r);
+  overflow:hidden;
+}
+
+.report-page{
+  padding:32px 24px;
+  border-bottom:1px solid var(--border);
+}
+.report-page:last-child{border-bottom:none}
+@media(min-width:480px){.report-page{padding:40px 36px}}
+
+.report-meta{
+  display:flex;justify-content:space-between;align-items:center;
+  font-size:11px;color:var(--gray-mid);letter-spacing:.05em;
+  text-transform:uppercase;margin-bottom:18px;
+}
+.report-meta .logo{font-weight:800;color:var(--blue);letter-spacing:.02em;text-transform:none;font-size:14px;}
+
+.report-h1{
+  font-size:22px;font-weight:800;line-height:1.25;color:var(--dark);
+  margin-bottom:8px;
+}
+@media(min-width:480px){.report-h1{font-size:28px}}
+.report-h2{
+  font-size:18px;font-weight:700;color:var(--dark);
+  margin-bottom:14px;
+}
+.report-h3{
+  font-size:14px;font-weight:700;color:var(--dark);
+  margin-bottom:6px;
+}
+
+.report-intro{
+  font-size:14px;color:var(--gray);line-height:1.55;margin-bottom:20px;
+}
+
+.params-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:8px;
+  background:var(--gray-light);border-radius:12px;padding:14px 16px;margin-bottom:22px;
+}
+.params-grid .p-label{font-size:11px;color:var(--gray);text-transform:uppercase;letter-spacing:.04em;margin-bottom:2px;}
+.params-grid .p-val{font-size:13px;color:var(--dark);font-weight:600;}
+
+.hero-numbers{
+  display:grid;grid-template-columns:1fr;gap:10px;
+}
+@media(min-width:480px){.hero-numbers{grid-template-columns:1fr 1fr 1fr}}
+
+.hero-card{
+  border-radius:14px;padding:18px;
+}
+.hero-card.loss{background:var(--red-light);border:1.5px solid #fcc}
+.hero-card.gain{background:var(--green-light);border:1.5px solid #b2e8d2}
+.hero-card.roi-b{background:var(--blue-light);border:1.5px solid #c5c6f5}
+
+.hero-card .lbl{
+  font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;margin-bottom:6px;
+}
+.loss .lbl{color:var(--red)}
+.gain .lbl{color:var(--green)}
+.roi-b .lbl{color:var(--blue)}
+
+.hero-card .val{
+  font-size:22px;font-weight:800;line-height:1.15;color:var(--dark);
+}
+@media(min-width:480px){.hero-card .val{font-size:24px}}
+.loss .val{color:var(--red)}
+.gain .val{color:var(--green)}
+.roi-b .val{color:var(--blue)}
+.hero-card .sub{font-size:12px;color:var(--gray);margin-top:4px;}
+
+/* Locked preview */
+.hero-card.locked{
+  position:relative;background:var(--gray-light);border:1.5px dashed var(--border);
+  overflow:hidden;
+}
+.hero-card.locked .val,
+.hero-card.locked .sub{filter:blur(7px);user-select:none;}
+.hero-card.locked .lock-badge{
+  position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+  background:var(--white);color:var(--dark);border:1px solid var(--border);
+  border-radius:99px;padding:4px 10px;font-size:11px;font-weight:700;
+  display:flex;align-items:center;gap:4px;
+}
+
+/* Loss breakdown */
+.loss-item{
+  border:1px solid var(--border);border-radius:12px;padding:16px;margin-bottom:10px;
+}
+.loss-item.bonus{border-color:#cfdcff;background:#f6f8ff;}
+.loss-item-head{
+  display:flex;justify-content:space-between;align-items:baseline;
+  gap:10px;margin-bottom:6px;flex-wrap:wrap;
+}
+.loss-item-title{font-size:15px;font-weight:700;color:var(--dark);}
+.loss-item-amount{font-size:18px;font-weight:800;color:var(--red);white-space:nowrap;}
+.loss-item.bonus .loss-item-amount{color:var(--blue);}
+.loss-item-formula{
+  font-size:12px;color:var(--gray);line-height:1.55;
+  background:var(--gray-light);border-radius:8px;padding:8px 10px;margin-top:8px;
+  font-family:'SF Mono',Menlo,Consolas,monospace;
+}
+.loss-item.bonus .loss-item-formula{background:#eef2ff;}
+.loss-item-note{font-size:12px;color:var(--gray);line-height:1.5;margin-top:6px;font-style:italic;}
+
+/* Before/after */
+.ba-grid{
+  display:grid;grid-template-columns:1fr;gap:10px;margin-top:12px;
+}
+@media(min-width:480px){.ba-grid{grid-template-columns:repeat(3,1fr)}}
+.ba-card{
+  border:1px solid var(--border);border-radius:12px;padding:14px;
+}
+.ba-card .ba-metric{font-size:12px;color:var(--gray);margin-bottom:8px;}
+.ba-row{display:flex;align-items:center;gap:8px;font-size:13px;}
+.ba-row .b-val{color:var(--gray);text-decoration:line-through;}
+.ba-row .arrow{color:var(--gray-mid);}
+.ba-row .a-val{color:var(--green);font-weight:700;}
+.ba-card .ba-src{font-size:11px;color:var(--gray-mid);margin-top:6px;line-height:1.4;}
+
+/* Case study */
+.case{
+  background:var(--gray-light);border-radius:12px;padding:18px;
+}
+.case-tag{
+  display:inline-block;background:var(--white);color:var(--gray);
+  font-size:11px;font-weight:600;border-radius:99px;padding:3px 10px;margin-bottom:10px;
+  border:1px solid var(--border);
+}
+.case-headline{font-size:16px;font-weight:700;color:var(--dark);line-height:1.35;margin-bottom:12px;}
+.case-metrics{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px;}
+@media(min-width:480px){.case-metrics{grid-template-columns:repeat(4,1fr)}}
+.case-metric{background:var(--white);border-radius:10px;padding:10px 12px;}
+.case-metric .cm-lbl{font-size:10px;color:var(--gray);text-transform:uppercase;letter-spacing:.04em;margin-bottom:2px;}
+.case-metric .cm-val{font-size:15px;font-weight:800;color:var(--blue);}
+.case-quote{font-size:13px;color:var(--dark);line-height:1.55;font-style:italic;border-left:3px solid var(--blue);padding-left:12px;}
+
+/* Plan */
+.plan-table{
+  display:grid;grid-template-columns:1fr;gap:10px;margin-bottom:16px;
+}
+@media(min-width:480px){.plan-table{grid-template-columns:1fr 1fr}}
+.plan-card{
+  border:1.5px solid var(--border);border-radius:12px;padding:16px;
+}
+.plan-card.featured{border-color:var(--blue);background:var(--blue-light)}
+.plan-title{font-size:13px;font-weight:700;color:var(--dark);margin-bottom:10px}
+.plan-price{font-size:18px;font-weight:800;color:var(--dark);margin-bottom:8px;}
+.plan-list{list-style:none;display:flex;flex-direction:column;gap:6px}
+.plan-list li{
+  font-size:13px;color:var(--gray);line-height:1.4;
+  padding-left:16px;position:relative;
+}
+.plan-list li::before{
+  content:'✓';position:absolute;left:0;color:var(--blue);font-weight:700;font-size:12px;
+}
+.plan-list li strong{color:var(--dark);font-weight:600}
+
+/* Steps timeline */
+.steps{display:flex;flex-direction:column;gap:10px;margin-bottom:18px;}
+.step-row{display:flex;gap:14px;align-items:flex-start;}
+.step-num{
+  flex-shrink:0;width:28px;height:28px;border-radius:50%;
+  background:var(--blue);color:var(--white);
+  font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;
+}
+.step-body .step-t{font-size:14px;font-weight:700;color:var(--dark);margin-bottom:2px;}
+.step-body .step-d{font-size:13px;color:var(--gray);line-height:1.5;}
+
+/* Final CTA card */
+.final-cta{
+  background:var(--dark);color:var(--white);border-radius:14px;padding:22px;text-align:center;
+  margin-top:20px;
+}
+.final-cta h3{font-size:18px;font-weight:700;margin-bottom:8px;color:var(--white);}
+.final-cta p{font-size:13px;color:#b8c1cf;line-height:1.5;margin-bottom:16px;}
+.final-cta .cta-btn{margin-bottom:8px;}
+.final-cta .cta-row{display:flex;gap:10px;flex-wrap:wrap;}
+.final-cta .cta-row .cta-btn{flex:1;min-width:180px;margin-bottom:0;}
+.final-cta .cta-btn.ghost{
+  background:transparent;color:var(--white) !important;border:2px solid rgba(255,255,255,.3);
+}
+.final-cta .cta-btn.ghost:hover{background:rgba(255,255,255,.08);}
+
+.action-bar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px;}
+.action-bar .cta-btn{margin-bottom:0;flex:1;min-width:180px;}
+
+.disclaimer{
+  font-size:11px;color:var(--gray-mid);text-align:center;line-height:1.55;
+  padding:16px;border-top:1px solid var(--border);
+}
+
+/* Meta disclaimer */
+.meta-note{
+  font-size:11px;color:var(--gray-mid);line-height:1.45;
+  margin-top:14px;padding:10px 12px;background:var(--gray-light);border-radius:8px;
+}
+
+/* Lead form */
+.lead-form{
+  border:1px solid var(--border);border-radius:var(--r);
+  padding:24px;margin-top:0;background:var(--white);
+}
+@media(min-width:480px){.lead-form{padding:32px 36px;}}
+.lead-form .lf-title{
+  font-size:20px;font-weight:800;color:var(--dark);margin-bottom:6px;line-height:1.3;
+}
+.lead-form .lf-sub{
+  font-size:13px;color:var(--gray);line-height:1.5;margin-bottom:18px;
+}
+.lf-row{margin-bottom:12px;}
+.lf-row label{display:block;font-size:12px;font-weight:600;color:var(--dark);margin-bottom:6px;}
+
+.lf-check{
+  display:flex;gap:10px;align-items:flex-start;
+  font-size:12px;color:var(--gray);line-height:1.5;
+  margin-bottom:10px;cursor:pointer;
+}
+.lf-check input{
+  appearance:none;-webkit-appearance:none;
+  flex-shrink:0;width:18px;height:18px;
+  border:2px solid var(--border);border-radius:5px;
+  cursor:pointer;background:var(--white);
+  display:inline-flex;align-items:center;justify-content:center;
+  margin-top:1px;transition:all .15s;
+}
+.lf-check input:checked{background:var(--blue);border-color:var(--blue);}
+.lf-check input:checked::after{
+  content:'✓';color:var(--white);font-size:12px;font-weight:700;
+}
+.lf-check a{color:var(--blue);text-decoration:underline;}
+
+.lf-error{font-size:12px;color:var(--red);margin-bottom:10px;display:none;}
+.lf-error.show{display:block;}
+
+.lf-submit{margin-top:8px;}
+
+/* Print = PDF */
+@media print {
+  body{background:#fff;}
+  .calc-header,.progress-bar,.action-bar,.no-print{display:none !important;}
+  .calc-wrap{padding:0;max-width:none;}
+  .report{border:none;border-radius:0;}
+  .report-page{page-break-inside:avoid;page-break-after:always;padding:24px;}
+  .report-page:last-child{page-break-after:auto;}
+  .final-cta{background:var(--gray-light);color:var(--dark);}
+  .final-cta h3,.final-cta p{color:var(--dark);}
+  .final-cta .cta-btn{display:none;}
+  .final-cta .cta-row{display:none;}
+}
+</style> </head> <body> <div class="calc-wrap"> <div class="calc-header no-print"> <div class="badge">Калькулятор</div> <h1>Сколько теряет ваш<br>отдел продаж?</h1> <p>4 шага — и вы получите детальный отчёт с расчётом потерь и планом, как их вернуть</p> </div> <div class="progress-bar no-print"> <div class="progress-step active" id="ps1"></div> <div class="progress-step" id="ps2"></div> <div class="progress-step" id="ps3"></div> <div class="progress-step" id="ps4"></div> <div class="progress-step" id="ps5"></div> <span class="progress-label" id="prog-label">Шаг 1 из 4</span> </div> <!-- Step 1: воронка (лиды, конверсия, чек) --> <div class="screen" id="step1"> <div class="screen-title">Расскажите про<br>свою воронку</div> <div class="screen-sub">Это нужно, чтобы посчитать упущенную выручку именно у вас</div> <div class="field-group"> <div class="field-label"> <span>Сколько лидов в месяц</span> <span class="hint">обращений / заявок / звонков</span> </div> <div class="input-wrap"> <input type="number" inputmode="numeric" class="num-input" id="in-leads" placeholder="например, 500"> </div> <div class="chips"> <button type="button" class="chip" onclick="setVal('in-leads',100)">100</button> <button type="button" class="chip" onclick="setVal('in-leads',500)">500</button> <button type="button" class="chip" onclick="setVal('in-leads',1500)">1 500</button> <button type="button" class="chip" onclick="setVal('in-leads',5000)">5 000</button> </div> </div> <div class="field-group"> <div class="field-label"> <span>Конверсия из лида в продажу</span> <span class="hint">% сделок от обращений</span> </div> <div class="input-wrap"> <input type="number" inputmode="decimal" step="0.1" class="num-input has-suffix" id="in-conv" placeholder="например, 8"> <span class="suffix">%</span> </div> <div class="chips"> <button type="button" class="chip" onclick="setVal('in-conv',3)">3%</button> <button type="button" class="chip" onclick="setVal('in-conv',7)">7%</button> <button type="button" class="chip" onclick="setVal('in-conv',12)">12%</button> <button type="button" class="chip" onclick="setVal('in-conv',20)">20%</button> </div> </div> <div class="field-group"> <div class="field-label"> <span>Средний чек сделки</span> <span class="hint">в рублях</span> </div> <div class="input-wrap"> <input type="number" inputmode="numeric" class="num-input has-suffix" id="in-check" placeholder="например, 50 000"> <span class="suffix">₽</span> </div> <div class="chips"> <button type="button" class="chip" onclick="setVal('in-check',5000)">5 000</button> <button type="button" class="chip" onclick="setVal('in-check',20000)">20 000</button> <button type="button" class="chip" onclick="setVal('in-check',50000)">50 000</button> <button type="button" class="chip" onclick="setVal('in-check',150000)">150 000</button> <button type="button" class="chip" onclick="setVal('in-check',500000)">500 000</button> <button type="button" class="chip" onclick="setVal('in-check',1500000)">1 500 000</button> </div> </div> <div class="field-error" id="err-step1">Заполните все поля корректно</div> <div class="multi-actions"> <button class="btn-next" onclick="nextStep1()">Дальше →</button> </div> </div> <!-- Step 2: команда --> <div class="screen" id="step2"> <div class="screen-title">Расскажите про<br>отдел продаж</div> <div class="screen-sub">Чтобы посчитать, сколько вы платите за рутину</div> <div class="field-group"> <div class="field-label"> <span>Сколько менеджеров в отделе</span> <span class="hint">человек</span> </div> <div class="input-wrap"> <input type="number" inputmode="numeric" class="num-input" id="in-mgrs" placeholder="например, 5"> </div> <div class="chips"> <button type="button" class="chip" onclick="setVal('in-mgrs',1)">1</button> <button type="button" class="chip" onclick="setVal('in-mgrs',3)">3</button> <button type="button" class="chip" onclick="setVal('in-mgrs',7)">7</button> <button type="button" class="chip" onclick="setVal('in-mgrs',15)">15</button> <button type="button" class="chip" onclick="setVal('in-mgrs',30)">30</button> </div> </div> <div class="field-group"> <div class="field-label"> <span>Средняя зарплата менеджера</span> <span class="hint">оклад + бонусы, в месяц</span> </div> <div class="input-wrap"> <input type="number" inputmode="numeric" class="num-input has-suffix" id="in-salary" placeholder="например, 90 000"> <span class="suffix">₽</span> </div> <div class="chips"> <button type="button" class="chip" onclick="setVal('in-salary',60000)">60 000</button> <button type="button" class="chip" onclick="setVal('in-salary',90000)">90 000</button> <button type="button" class="chip" onclick="setVal('in-salary',120000)">120 000</button> <button type="button" class="chip" onclick="setVal('in-salary',180000)">180 000</button> </div> </div> <div class="field-error" id="err-step2">Заполните все поля корректно</div> <div class="multi-actions"> <button class="btn-next" onclick="nextStep2()">Дальше →</button> </div> </div> <!-- Step 3: sphere --> <div class="screen" id="step3"> <div class="screen-title">В какой сфере<br>работает ваш бизнес?</div> <div class="screen-sub">Подберём релевантный кейс</div> <div class="options"> <button class="option-card" onclick="choose('sphere','realty')"><span class="ic">🏗</span>Недвижимость / стройка</button> <button class="option-card" onclick="choose('sphere','edu')"><span class="ic">🎓</span>Образование / онлайн-курсы</button> <button class="option-card" onclick="choose('sphere','ecom')"><span class="ic">🛍</span>Интернет-магазин / товары</button> <button class="option-card" onclick="choose('sphere','b2c')"><span class="ic">🔧</span>Услуги для людей (B2C)</button> <button class="option-card" onclick="choose('sphere','b2b')"><span class="ic">💼</span>B2B / услуги бизнесу</button> <button class="option-card" onclick="choose('sphere','beauty')"><span class="ic">🏥</span>Медицина / красота</button> <button class="option-card" onclick="choose('sphere','other')"><span class="ic">📦</span>Другое</button> </div> </div> <!-- Step 4: channels (multi) --> <div class="screen" id="step4"> <div class="screen-title">Где обрабатываете<br>лиды сейчас?</div> <div class="screen-sub">Можно выбрать несколько — оценим сложность интеграции</div> <div class="options" id="channels-list"> <button class="option-card" data-ch="bitrix"   onclick="toggleChannel(this)"><span class="ic">🟧</span>Битрикс24<span class="chk"></span></button> <button class="option-card" data-ch="amocrm"   onclick="toggleChannel(this)"><span class="ic">🟦</span>AmoCRM<span class="chk"></span></button> <button class="option-card" data-ch="max"      onclick="toggleChannel(this)"><span class="ic">💠</span>Макс<span class="chk"></span></button> <button class="option-card" data-ch="telegram" onclick="toggleChannel(this)"><span class="ic">✈️</span>Телеграм<span class="chk"></span></button> <button class="option-card" data-ch="avito"    onclick="toggleChannel(this)"><span class="ic">🛒</span>Авито<span class="chk"></span></button> <button class="option-card" data-ch="whatsapp" onclick="toggleChannel(this)"><span class="ic">💬</span>WhatsApp<span class="star">*</span><span class="chk"></span></button> <button class="option-card" data-ch="phone"    onclick="toggleChannel(this)"><span class="ic">📞</span>По телефону<span class="chk"></span></button> </div> <div class="meta-note">
+      * WhatsApp — продукт компании Meta Platforms Inc., деятельность которой признана экстремистской и запрещена на территории Российской Федерации.
+    </div> <div class="multi-actions"> <button class="btn-next" id="channels-next" disabled onclick="finishQuiz()">Сформировать отчёт →</button> </div> </div> <!-- Result: preview + lead form OR full report --> <div class="screen" id="result"> <div class="report" id="report-body"></div> <div class="lead-form no-print" id="lead-form" style="display:none;"> <div class="lf-title">Заполните контакты, чтобы открыть полный отчёт</div> <div class="lf-sub">Покажем разложение потерь по статьям, кейс из вашей сферы и план запуска. PDF — кнопкой в конце отчёта.</div> <div class="lf-row"> <label for="lf-name">Имя</label> <input type="text" class="text-input" id="lf-name" placeholder="Как к вам обращаться"> </div> <div class="lf-row"> <label for="lf-phone">Телефон</label> <input type="tel" class="text-input" id="lf-phone" placeholder="+7 ___ ___ __ __"> </div> <div class="lf-row"> <label for="lf-tg">Telegram-ник</label> <input type="text" class="text-input" id="lf-tg" placeholder="@username"> </div> <label class="lf-check"> <input type="checkbox" id="lf-c1"> <span>Я согласен на <a href="https://docs.suvvy.ai/ru/legal/soglasie-na-obrabotku-personalnykh-dannykh" target="_blank" rel="noopener">обработку персональных данных</a></span> </label> <label class="lf-check"> <input type="checkbox" id="lf-c2"> <span>Я ознакомлен с <a href="https://docs.suvvy.ai/ru/legal/privacy-policy" target="_blank" rel="noopener">политикой конфиденциальности</a></span> </label> <div class="lf-error" id="lf-error">Заполните все поля и подтвердите согласия</div> <button class="cta-btn lf-submit" id="lf-submit" onclick="submitLead()">Открыть полный отчёт →</button> </div> <div class="disclaimer no-print">
+      Расчёт основан на ваших данных и средних показателях клиентов Suvvy в похожем сегменте.
+      Реальный результат зависит от качества лидов и продукта.
+    </div> </div> </div> <script>
+// ============================================================
+//                    КОНФИГУРАЦИЯ
+// ============================================================
+const BOT_URL          = 'https://t.me/suvvy_bot';
+const CONSULT_TG       = 'https://t.me/ewannemnonofff';
+// Google Apps Script Web App URL для сохранения лидов в Sheets
+// (см. инструкцию в конце файла). Если пусто — submit просто открывает отчёт.
+const SHEETS_WEBHOOK_URL = 'https://script.google.com/macros/s/AKfycbwTD3vdvPbP3yhmgmMCo50a_zg-BpjysmDVigTaXd-ACQ8rNY5wWUPnloBbbMnRWuQI/exec';
+
+// Параметры модели
+const МОД = {
+  приростКонверсииПП:   0.05,
+  сокращениеФОТ:        0.50,
+  приростЭффЛидов:      0.15,
+  процентВозврата:      0.80,
+  ценаДиалога:          15,
+  диалоговНаЛид:        2.5,
+  стоимостьВнедрения:   50000,
+  разброс:              0.15
+};
+
+const SPHERE_LABEL = {
+  realty:'Недвижимость / стройка',
+  edu:'Образование / онлайн-курсы',
+  ecom:'Интернет-магазин / товары',
+  b2c:'Услуги для людей (B2C)',
+  b2b:'B2B / услуги бизнесу',
+  beauty:'Медицина / красота',
+  other:'Бизнес услуг'
+};
+
+const CHANNEL_LABEL = {
+  bitrix:'Битрикс24', amocrm:'AmoCRM', max:'Макс', telegram:'Телеграм',
+  avito:'Авито', whatsapp:'WhatsApp*', phone:'По телефону'
+};
+// Какие каналы относятся к Meta (для дисклеймера в отчёте)
+const META_CHANNELS = ['whatsapp'];
+
+const CASES = {
+  realty: {
+    tag:'Застройщик жилого комплекса, Москва',
+    headline:'Подняли конверсию заявка→встреча на 6 п.п. и сократили штат колл-центра вдвое',
+    metrics:[
+      ['Лидов в мес', '~1 800'],
+      ['Конверсия в встречу', '14% → 20%'],
+      ['Менеджеров', '8 → 4'],
+      ['Окупаемость', '21 день']
+    ],
+    quote:'AI берёт первичный контакт, квалифицирует по бюджету и району, ставит встречу в CRM. Менеджер заходит уже на горячего клиента — экономит 4–5 часов в день.'
+  },
+  edu: {
+    tag:'Онлайн-школа, средний чек 80 000 ₽',
+    headline:'Подняли конверсию в оплату с 6% до 11% и сэкономили 4 ставки менеджеров',
+    metrics:[
+      ['Лидов в мес', '~3 500'],
+      ['Конверсия в оплату', '6% → 11%'],
+      ['Стоимость лида', '−34%'],
+      ['Окупаемость', '17 дней']
+    ],
+    quote:'AI ведёт диалог по программам, отвечает на возражения, предлагает рассрочку. Передаёт менеджеру только тех, кто готов оплатить — никакой "просто узнать цену".'
+  },
+  ecom: {
+    tag:'Магазин товаров для дома',
+    headline:'Увеличили конверсию чата в заказ на 5 п.п. за счёт мгновенных ответов 24/7',
+    metrics:[
+      ['Заказов в мес', '~2 100'],
+      ['Чат → заказ', '+24%'],
+      ['Лиды с ночи', '+31%'],
+      ['Окупаемость', '19 дней']
+    ],
+    quote:'Раньше клиенты с Авито уходили к конкурентам — пока менеджер отвечал, продавали другие. AI отвечает за 20 секунд, рассказывает про наличие, оформляет заказ.'
+  },
+  b2c: {
+    tag:'Сеть услуг (ремонт техники), 8 городов',
+    headline:'Получили +31% заявок с ночи и выходных, разгрузили диспетчеров на 60%',
+    metrics:[
+      ['Заявок в мес', '~4 000'],
+      ['Ночные заявки', '+31%'],
+      ['Рутина диспетчера', '−60%'],
+      ['Окупаемость', '22 дня']
+    ],
+    quote:'AI принимает заявку, уточняет проблему, предлагает слот мастера, шлёт подтверждение. Диспетчер подключается только когда нужно перенести или спорный случай.'
+  },
+  b2b: {
+    tag:'B2B-сервис для логистики, средний чек 350 000 ₽',
+    headline:'Подняли конверсию встреча→договор на 40% за счёт квалификации',
+    metrics:[
+      ['MQL в мес', '~600'],
+      ['SQL после AI', '×2.3'],
+      ['Встреча → договор', '+40%'],
+      ['Окупаемость', '28 дней']
+    ],
+    quote:'AI прогревает лида 5–7 сообщениями, отсекает несоответствующих по объёму. Sales выходит только на квалифицированных — в 2 раза меньше встреч, в 1.4 раза больше сделок.'
+  },
+  beauty: {
+    tag:'Сеть клиник эстетической медицины',
+    headline:'Сократили штат администраторов с 6 до 3, увеличили загрузку врачей на 18%',
+    metrics:[
+      ['Записей в мес', '~2 800'],
+      ['Загрузка врачей', '+18%'],
+      ['Нет-шоу', '−42%'],
+      ['Окупаемость', '24 дня']
+    ],
+    quote:'AI ведёт первичную консультацию, записывает, напоминает за день и за 2 часа. Администратор занимается только сложными случаями и оплатами на месте.'
+  },
+  other: {
+    tag:'Компания услуг, команда 8 человек',
+    headline:'Сэкономили 240 часов команды в месяц и подняли конверсию из заявки в продажу на 5 п.п.',
+    metrics:[
+      ['Лидов в мес', '~1 200'],
+      ['Конверсия', '+5 п.п.'],
+      ['Экономия часов', '240/мес'],
+      ['Окупаемость', '23 дня']
+    ],
+    quote:'AI закрывает 70% типовых вопросов клиента сам. Менеджеры включаются только на этапе обсуждения условий — это плюс несколько сделок в неделю на ровном месте.'
+  }
+};
+
+const ans = { channels: [] };
+let calcCache = null;
+
+// ============================================================
+//                    КВИЗ
+// ============================================================
+function setVal(id, v) { document.getElementById(id).value = v; }
+function num(id) {
+  const v = parseFloat(document.getElementById(id).value);
+  return isNaN(v) ? 0 : v;
+}
+
+function nextStep1() {
+  const leads = num('in-leads');
+  const conv  = num('in-conv');
+  const check = num('in-check');
+  const err = document.getElementById('err-step1');
+  if (leads <= 0 || conv <= 0 || conv > 100 || check <= 0) {
+    err.classList.add('show'); return;
+  }
+  err.classList.remove('show');
+  ans.leads = leads; ans.conv = conv / 100; ans.check = check;
+  goTo('step2', 2);
+}
+
+function nextStep2() {
+  const m = num('in-mgrs');
+  const s = num('in-salary');
+  const err = document.getElementById('err-step2');
+  if (m <= 0 || s <= 0) { err.classList.add('show'); return; }
+  err.classList.remove('show');
+  ans.mgrs = m; ans.salary = s;
+  goTo('step3', 3);
+}
+
+function choose(key, val) {
+  ans[key] = val;
+  if (key === 'sphere') goTo('step4', 4);
+}
+
+function toggleChannel(btn) {
+  btn.classList.toggle('selected');
+  ans.channels = Array.from(document.querySelectorAll('#channels-list .option-card.selected')).map(el => el.dataset.ch);
+  document.getElementById('channels-next').disabled = ans.channels.length === 0;
+}
+
+function finishQuiz() {
+  calcCache = calcLosses();
+  buildPreview();
+  document.getElementById('lead-form').style.display = 'block';
+  goTo('result', 5);
+}
+
+function goTo(id, step) {
+  document.querySelectorAll('.screen').forEach(s => { s.classList.remove('visible'); s.style.display = 'none'; });
+  const el = document.getElementById(id);
+  el.style.display = 'block';
+  requestAnimationFrame(() => requestAnimationFrame(() => el.classList.add('visible')));
+  setProgress(step);
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+function setProgress(step) {
+  ['ps1','ps2','ps3','ps4','ps5'].forEach((id, i) => {
+    const el = document.getElementById(id);
+    el.className = 'progress-step';
+    if (i + 1 < step) el.classList.add('done');
+    else if (i + 1 === step) el.classList.add('active');
+  });
+  document.getElementById('prog-label').textContent = step <= 4 ? ('Шаг ' + step + ' из 4') : 'Готово';
+}
+
+// ============================================================
+//                    ФОРМАТ
+// ============================================================
+function fmtRub(n) { return Math.round(n).toLocaleString('ru-RU') + ' ₽'; }
+function fmtRubShort(n) {
+  if (n >= 1e6) return (n/1e6).toFixed(n>=10e6?0:1).replace('.',',') + ' млн ₽';
+  if (n >= 1e3) return Math.round(n/1e3).toLocaleString('ru-RU') + ' тыс ₽';
+  return Math.round(n).toLocaleString('ru-RU') + ' ₽';
+}
+function fmtInt(n) { return Math.round(n).toLocaleString('ru-RU'); }
+
+// ============================================================
+//                    РАСЧЁТ
+// ============================================================
+function calcLosses() {
+  const { leads, conv, check, mgrs, salary } = ans;
+  const приростКонв = МОД.приростКонверсииПП;
+  const newConv = conv + приростКонв;
+  const доходОтКонв = leads * приростКонв * check;
+  const экономияФОТ = mgrs * salary * МОД.сокращениеФОТ;
+  const доходОтМаркетинга = leads * МОД.приростЭффЛидов * newConv * check;
+  const totalМесяц = доходОтКонв + экономияФОТ + доходОтМаркетинга;
+  const возврат = totalМесяц * МОД.процентВозврата;
+  return {
+    leads, conv, check, mgrs, salary, newConv,
+    приростКонв, доходОтКонв, экономияФОТ, доходОтМаркетинга,
+    totalМесяц,
+    totalMin: totalМесяц * (1 - МОД.разброс),
+    totalMax: totalМесяц * (1 + МОД.разброс),
+    возврат,
+    возвратМин: возврат * (1 - МОД.разброс),
+    возвратМакс: возврат * (1 + МОД.разброс),
+    текВыручка: leads * conv * check,
+    новВыручка: leads * (1 + МОД.приростЭффЛидов) * newConv * check
+  };
+}
+
+// ============================================================
+//                    PREVIEW (gated)
+// ============================================================
+function buildPreview() {
+  const L = calcCache;
+  const { sphere, channels } = ans;
+  const channelsTxt = channels.map(ch => CHANNEL_LABEL[ch]).join(', ') || '—';
+  const date = new Date().toLocaleDateString('ru-RU', { day:'numeric', month:'long', year:'numeric' });
+
+  const html = `
+    <div class="report-page"> <div class="report-meta"> <span class="logo">Suvvy AI</span> <span>${date}</span> </div> <div class="report-h1">Отчёт об упущенной выручке</div> <div class="report-intro">Расчёт потенциала для отдела продаж в сфере «${SPHERE_LABEL[sphere]}». Основано на ваших данных и эффектах, которые AI-агент Suvvy показывает у клиентов в похожем сегменте.</div> <div class="params-grid"> <div><div class="p-label">Лидов в месяц</div><div class="p-val">${fmtInt(L.leads)}</div></div> <div><div class="p-label">Текущая конверсия</div><div class="p-val">${(L.conv*100).toFixed(1).replace('.0','')}%</div></div> <div><div class="p-label">Средний чек</div><div class="p-val">${fmtRub(L.check)}</div></div> <div><div class="p-label">Команда / ФОТ</div><div class="p-val">${L.mgrs} чел × ${fmtRub(L.salary)}</div></div> <div style="grid-column:1/-1"><div class="p-label">Каналы</div><div class="p-val">${channelsTxt}</div></div> </div> <div class="hero-numbers"> <div class="hero-card loss locked"> <div class="lbl">Теряете / мес</div> <div class="val">${fmtRubShort(L.totalMin)} – ${fmtRubShort(L.totalMax)}</div> <div class="sub">Недополученная выручка + переплата за рутину</div> <div class="lock-badge">🔒 откроется после контактов</div> </div> <div class="hero-card locked"> <div class="lbl">AI вернёт / мес</div> <div class="val">${fmtRubShort(L.возвратМин)} – ${fmtRubShort(L.возвратМакс)}</div> <div class="sub">${Math.round(МОД.процентВозврата*100)}% потенциала</div> <div class="lock-badge">🔒 откроется после контактов</div> </div> <div class="hero-card locked"> <div class="lbl">ROI</div> <div class="val">×42</div> <div class="sub">на каждый рубль в платформу</div> <div class="lock-badge">🔒 откроется после контактов</div> </div> </div> </div>
+  `;
+  document.getElementById('report-body').innerHTML = html;
+}
+
+// ============================================================
+//                    FULL REPORT
+// ============================================================
+function buildFullReport() {
+  const L = calcCache;
+  const { sphere, channels } = ans;
+  const c = CASES[sphere] || CASES.other;
+
+  const aiВМесяц = Math.max(L.leads * МОД.диалоговНаЛид * МОД.ценаДиалога, 1);
+  const roi = Math.max(1, Math.round(L.возвратМин / aiВМесяц));
+  const дниОкуп = Math.max(1, Math.ceil(МОД.стоимостьВнедрения / (L.возвратМин / 30)));
+
+  const channelsTxt = channels.map(ch => CHANNEL_LABEL[ch]).join(', ') || '—';
+  const hasMeta = channels.some(ch => META_CHANNELS.includes(ch));
+  const date = new Date().toLocaleDateString('ru-RU', { day:'numeric', month:'long', year:'numeric' });
+
+  // Pre-filled Telegram message
+  const tgText = `Здравствуйте! Нужна консультация по внедрению Suvvy под ключ.\n` +
+                 `Ниша: ${SPHERE_LABEL[sphere]}\n` +
+                 `Лидов в месяц: ${fmtInt(L.leads)}\n` +
+                 `Средний чек: ${fmtRub(L.check)}\n` +
+                 `Каналы: ${channelsTxt}\n` +
+                 `По расчёту теряем ${fmtRubShort(L.totalМесяц)} в месяц.`;
+  const consultHref = CONSULT_TG + '?text=' + encodeURIComponent(tgText);
+
+  const html = `
+    <!-- ───── СТРАНИЦА 1: Обложка ───── --> <div class="report-page"> <div class="report-meta"> <span class="logo">Suvvy AI</span> <span>${date}</span> </div> <div class="report-h1">Отчёт об упущенной выручке</div> <div class="report-intro">Расчёт потенциала для отдела продаж в сфере «${SPHERE_LABEL[sphere]}». Основано на ваших данных и эффектах, которые AI-агент Suvvy показывает у клиентов в похожем сегменте.</div> <div class="params-grid"> <div><div class="p-label">Лидов в месяц</div><div class="p-val">${fmtInt(L.leads)}</div></div> <div><div class="p-label">Текущая конверсия</div><div class="p-val">${(L.conv*100).toFixed(1).replace('.0','')}%</div></div> <div><div class="p-label">Средний чек</div><div class="p-val">${fmtRub(L.check)}</div></div> <div><div class="p-label">Команда / ФОТ</div><div class="p-val">${L.mgrs} чел × ${fmtRub(L.salary)}</div></div> <div style="grid-column:1/-1"><div class="p-label">Каналы</div><div class="p-val">${channelsTxt}</div></div> </div> <div class="hero-numbers"> <div class="hero-card loss"> <div class="lbl">Теряете / мес</div> <div class="val">${fmtRubShort(L.totalMin)} – ${fmtRubShort(L.totalMax)}</div> <div class="sub">Недополученная выручка + переплата за рутину</div> </div> <div class="hero-card gain"> <div class="lbl">AI вернёт / мес</div> <div class="val">${fmtRubShort(L.возвратМин)} – ${fmtRubShort(L.возвратМакс)}</div> <div class="sub">${Math.round(МОД.процентВозврата*100)}% потенциала в первые 2–3 мес</div> </div> <div class="hero-card roi-b"> <div class="lbl">ROI</div> <div class="val">×${roi}</div> <div class="sub">на каждый рубль в платформу</div> </div> </div> </div> <!-- ───── СТРАНИЦА 2: Разложение ───── --> <div class="report-page"> <div class="report-h2">Откуда берутся ${fmtRubShort(L.totalМесяц)} в месяц</div> <div class="report-intro">Три прямых эффекта от внедрения AI-агента — каждый посчитан на ваших цифрах:</div> <div class="loss-item"> <div class="loss-item-head"> <div class="loss-item-title">1. Рост конверсии на 5 п.п.</div> <div class="loss-item-amount">+${fmtRubShort(L.доходОтКонв)}</div> </div> <div class="loss-item-note">Ответ за 30 секунд вместо часов + 24/7 без выходных. По нашим данным конверсия растёт в среднем на 5 процентных пунктов: ${(L.conv*100).toFixed(1).replace('.0','')}% → ${(L.newConv*100).toFixed(1).replace('.0','')}%.</div> <div class="loss-item-formula">${fmtInt(L.leads)} лидов × 5 п.п. прироста × ${fmtRub(L.check)} чек</div> </div> <div class="loss-item"> <div class="loss-item-head"> <div class="loss-item-title">2. Сокращение ФОТ на 50%</div> <div class="loss-item-amount">+${fmtRubShort(L.экономияФОТ)}</div> </div> <div class="loss-item-note">Бот забирает квалификацию, типовые вопросы и первичный контакт — это работа целой ставки на каждые двух менеджеров. ФОТ сокращается на половину или эти люди переводятся на работу с горячими сделками.</div> <div class="loss-item-formula">${L.mgrs} менеджеров × ${fmtRub(L.salary)} зп × 50%</div> </div> <div class="loss-item bonus"> <div class="loss-item-head"> <div class="loss-item-title">3. Бонус: эффективность маркетинга +15%</div> <div class="loss-item-amount">+${fmtRubShort(L.доходОтМаркетинга)}</div> </div> <div class="loss-item-note">Бот квалифицирует каждый лид и возвращает данные в воронку — маркетинг видит, какие источники дают целевых клиентов, а какие мусор. CPL снижается, доля квал-лидов растёт, за тот же бюджет получаете больше продаж.</div> <div class="loss-item-formula">${fmtInt(L.leads)} лидов × 15% эффективнее × ${(L.newConv*100).toFixed(1).replace('.0','')}% новая конв × ${fmtRub(L.check)}</div> </div> </div> <!-- ───── СТРАНИЦА 3: Что меняется ───── --> <div class="report-page"> <div class="report-h2">Что меняется с AI-агентом</div> <div class="report-intro">AI-агент Suvvy работает в ваших каналах (${channelsTxt}) под брендом компании. Отвечает по сценариям и базе знаний, понимает контекст диалога, передаёт квалифицированных клиентов менеджеру.</div> <div class="ba-grid"> <div class="ba-card"> <div class="ba-metric">Время ответа</div> <div class="ba-row"><span class="b-val">~12 ч</span><span class="arrow">→</span><span class="a-val">30 сек</span></div> <div class="ba-src">Главный драйвер +5 п.п. к конверсии</div> </div> <div class="ba-card"> <div class="ba-metric">Покрытие</div> <div class="ba-row"><span class="b-val">9:00–19:00</span><span class="arrow">→</span><span class="a-val">24/7</span></div> <div class="ba-src">+18–31% лидов из ночи и выходных</div> </div> <div class="ba-card"> <div class="ba-metric">Конверсия</div> <div class="ba-row"><span class="b-val">${(L.conv*100).toFixed(1).replace('.0','')}%</span><span class="arrow">→</span><span class="a-val">${(L.newConv*100).toFixed(1).replace('.0','')}%</span></div> <div class="ba-src">Скорость + 24/7 + правильная квалификация</div> </div> <div class="ba-card"> <div class="ba-metric">ФОТ команды</div> <div class="ba-row"><span class="b-val">${fmtRubShort(L.mgrs * L.salary)}</span><span class="arrow">→</span><span class="a-val">${fmtRubShort(L.mgrs * L.salary * 0.5)}</span></div> <div class="ba-src">Бот закрывает квалификацию и рутину</div> </div> <div class="ba-card"> <div class="ba-metric">Цена лида</div> <div class="ba-row"><span class="b-val">100%</span><span class="arrow">→</span><span class="a-val">−15…20%</span></div> <div class="ba-src">Маркетинг учится на квал-данных от бота</div> </div> <div class="ba-card"> <div class="ba-metric">Выручка / мес</div> <div class="ba-row"><span class="b-val">${fmtRubShort(L.текВыручка)}</span><span class="arrow">→</span><span class="a-val">${fmtRubShort(L.новВыручка)}</span></div> <div class="ba-src">Прямой эффект на P&amp;L</div> </div> </div> </div> <!-- ───── СТРАНИЦА 4: Кейс ───── --> <div class="report-page"> <div class="report-h2">Кейс из вашей сферы</div> <div class="case"> <div class="case-tag">${c.tag}</div> <div class="case-headline">${c.headline}</div> <div class="case-metrics">
+          ${c.metrics.map(m => `<div class="case-metric"><div class="cm-lbl">${m[0]}</div><div class="cm-val">${m[1]}</div></div>`).join('')}
+        </div> <div class="case-quote">«${c.quote}»</div> </div> </div> <!-- ───── СТРАНИЦА 5: План + стоимость ───── --> <div class="report-page"> <div class="report-h2">Как запустить для вашей команды</div> <div class="plan-table"> <div class="plan-card"> <div class="plan-title">Сами</div> <div class="plan-price">0 ₽ старт</div> <ul class="plan-list"> <li><strong>15 ₽</strong> за один диалог</li> <li>Обучение для команды</li> <li>Шаблоны сценариев</li> <li>Готовность к запуску: 1–2 недели</li> </ul> </div> <div class="plan-card featured"> <div class="plan-title">Под ключ</div> <div class="plan-price">от 50 000 ₽</div> <ul class="plan-list"> <li><strong>15 ₽</strong> за один диалог</li> <li>Окупится за <strong>${дниОкуп} дней</strong></li> <li>Разработка сценариев под ваш бизнес</li> <li>Интеграция CRM и каналов</li> <li>Запуск за 3 недели</li> </ul> </div> </div> <div class="report-h3" style="margin-top:18px;">3 шага до запуска</div> <div class="steps"> <div class="step-row"> <div class="step-num">1</div> <div class="step-body"> <div class="step-t">Бриф и сценарии · 5 дней</div> <div class="step-d">Изучаем продукт, выгружаем базу диалогов, проектируем логику AI-агента под ваши воронки.</div> </div> </div> <div class="step-row"> <div class="step-num">2</div> <div class="step-body"> <div class="step-t">Интеграция · 7–10 дней</div> <div class="step-d">Подключаем ${channelsTxt}, CRM, базу знаний. Тестируем на закрытой группе менеджеров.</div> </div> </div> <div class="step-row"> <div class="step-num">3</div> <div class="step-body"> <div class="step-t">Запуск и докрутка · 5–7 дней</div> <div class="step-d">Выкатываем на 100% трафика, ежедневно докручиваем сценарии по реальным диалогам.</div> </div> </div> </div> <div class="final-cta"> <h3>Готовы вернуть ${fmtRubShort(L.возвратМин)} в месяц?</h3> <p>Покажем как работает агент именно в вашем сценарии — без презентаций, на ваших примерах диалогов.</p> <div class="cta-row"> <a class="cta-btn" id="cta-link-bottom" href="${consultHref}" target="_blank" rel="noopener">Назначить созвон с экспертом →</a> <button class="cta-btn ghost" onclick="window.print()">📄 Скачать PDF</button> </div> </div>
+
+      ${hasMeta ? `<div class="meta-note">* WhatsApp / Instagram / Facebook — продукты компании Meta Platforms Inc., деятельность которой признана экстремистской и запрещена на территории Российской Федерации.</div>` : ''}
+    </div>
+  `;
+
+  document.getElementById('report-body').innerHTML = html;
+}
+
+// ============================================================
+//                    LEAD FORM
+// ============================================================
+function submitLead() {
+  const name  = document.getElementById('lf-name').value.trim();
+  const phone = document.getElementById('lf-phone').value.trim();
+  const tg    = document.getElementById('lf-tg').value.trim();
+  const c1    = document.getElementById('lf-c1').checked;
+  const c2    = document.getElementById('lf-c2').checked;
+  const err   = document.getElementById('lf-error');
+
+  if (!name || phone.replace(/\D/g,'').length < 10 || !tg || !c1 || !c2) {
+    err.classList.add('show'); return;
+  }
+  err.classList.remove('show');
+
+  const btn = document.getElementById('lf-submit');
+  btn.disabled = true;
+  btn.textContent = 'Открываем...';
+
+  // Send to Google Sheets (fire-and-forget, не блокируем UX)
+  sendToSheets({ name, phone, tg });
+
+  // Скрываем форму, открываем полный отчёт
+  document.getElementById('lead-form').style.display = 'none';
+  buildFullReport();
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+function sendToSheets(lead) {
+  if (!SHEETS_WEBHOOK_URL) return;
+  const L = calcCache || {};
+  const urlParams = new URLSearchParams(window.location.search);
+  const payload = {
+    ts: new Date().toISOString(),
+    name: lead.name,
+    phone: lead.phone,
+    telegram: lead.tg,
+    sphere: SPHERE_LABEL[ans.sphere] || '',
+    channels: (ans.channels || []).map(ch => CHANNEL_LABEL[ch]).join(', '),
+    leads: L.leads, conv_pct: Math.round((L.conv||0)*1000)/10, check: L.check,
+    mgrs: L.mgrs, salary: L.salary,
+    loss_month: Math.round(L.totalМесяц || 0),
+    return_month: Math.round(L.возврат || 0),
+    page: window.location.href,
+    utm_source: urlParams.get('utm_source') || '',
+    utm_medium: urlParams.get('utm_medium') || '',
+    utm_campaign: urlParams.get('utm_campaign') || ''
+  };
+
+  // Отправка через скрытый iframe + form POST.
+  // Работает везде (file://, http, https), не зависит от CORS и sendBeacon.
+  // Apps Script получит данные через e.parameter
+  try {
+    let iframe = document.getElementById('suvvy-sheets-frame');
+    if (!iframe) {
+      iframe = document.createElement('iframe');
+      iframe.id = 'suvvy-sheets-frame';
+      iframe.name = 'suvvy-sheets-frame';
+      iframe.style.display = 'none';
+      document.body.appendChild(iframe);
+    }
+    const form = document.createElement('form');
+    form.method = 'POST';
+    form.action = SHEETS_WEBHOOK_URL;
+    form.target = 'suvvy-sheets-frame';
+    form.style.display = 'none';
+    Object.keys(payload).forEach(k => {
+      const input = document.createElement('input');
+      input.type = 'hidden';
+      input.name = k;
+      input.value = payload[k] == null ? '' : String(payload[k]);
+      form.appendChild(input);
+    });
+    document.body.appendChild(form);
+    form.submit();
+    setTimeout(() => { try { form.remove(); } catch(e){} }, 5000);
+  } catch(e) { console.error('sendToSheets failed:', e); }
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+  const el = document.getElementById('step1');
+  el.style.display = 'block';
+  requestAnimationFrame(() => requestAnimationFrame(() => el.classList.add('visible')));
+});
+
+/* ============================================================
+   ИНСТРУКЦИЯ: Google Sheets интеграция
+   ============================================================
+   1. Создайте новую Google-таблицу. В первой строке колонки:
+      ts | name | phone | telegram | sphere | channels | leads | conv_pct |
+      check | mgrs | salary | loss_month | return_month | page |
+      utm_source | utm_medium | utm_campaign
+   2. Расширения → Apps Script. Вставьте код:
+
+      const SHEET_ID = '<ID вашей таблицы из URL>';
+      const SHEET_NAME = 'Лиды';
+      function doPost(e) {
+        const data = JSON.parse(e.postData.contents);
+        const sh = SpreadsheetApp.openById(SHEET_ID).getSheetByName(SHEET_NAME);
+        sh.appendRow([
+          data.ts, data.name, data.phone, data.telegram,
+          data.sphere, data.channels, data.leads, data.conv_pct,
+          data.check, data.mgrs, data.salary, data.loss_month, data.return_month,
+          data.page, data.utm_source, data.utm_medium, data.utm_campaign
+        ]);
+        return ContentService.createTextOutput(JSON.stringify({ok:true}))
+          .setMimeType(ContentService.MimeType.JSON);
+      }
+
+   3. Развернуть → Новое развертывание → Тип "Веб-приложение":
+      - Выполнять от имени: Я
+      - Доступ: Все
+      Скопируйте URL и вставьте в SHEETS_WEBHOOK_URL вверху скрипта.
+
+   4. На Tilda: вставьте этот файл целиком в блок T123 (HTML-код).
+   ============================================================ */
+</script> </body> </html> <!-- nominify end --> </div> </div> </div> </div> </div> <!--/allrecords--> <!-- Stat --> <!-- Yandex.Metrika counter 103437548 --> <script type="text/javascript" data-tilda-cookie-type="analytics">setTimeout(function(){(function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})(window,document,"script","https://mc.yandex.ru/metrika/tag.js","ym");window.mainMetrikaId='103437548';ym(window.mainMetrikaId,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor:true,params:{__ym:{"ymCms":{"cms":"tilda","cmsVersion":"1.0"}}},ecommerce:"dataLayer"});},2000);</script> <noscript><div><img src="https://mc.yandex.ru/watch/103437548" style="position:absolute; left:-9999px;" alt="" /> </div> </body></html>

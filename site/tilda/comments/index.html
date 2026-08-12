@@ -1,0 +1,164 @@
+<!DOCTYPE html><html lang="ru"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Комментарии</title><meta name="description" content><meta name="robots" content="noindex, nofollow"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Onest:wght@100..900&display=swap" rel="stylesheet"><link rel="stylesheet" href="/t/css/tilda-grid-3.0.min.css"><link rel="stylesheet" href="/t/css/tilda-blocks-page151963776.min.css"><script src="/t/js/tilda-polyfill-1.0.min.js"></script><script src="/t/js/jquery-1.10.2.min.js"></script><script src="/t/js/tilda-scripts-3.0.min.js"></script><script src="/t/js/tilda-blocks-page151963776.min.js"></script><script src="/t/js/lazyload-1.3.min.export.js"></script><script src="/t/js/tilda-events-1.0.min.js"></script></head> <body class="t-body" style="margin:0;">  <div id="allrecords" class="t-records"> <div id="rec2434361431" class="r t-rec" style=" " data-animationappear="off" data-record-type="131"> <!-- T123 --> <div class="t123"> <div class="t-container_100 "> <div class="t-width t-width_100 "> <!-- nominify begin --> <!DOCTYPE html> <html lang="ru"> <head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>Савви 2.0 — панель спикера</title> <link rel="preconnect" href="https://fonts.googleapis.com"> <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"> <style>
+    :root {
+      --bg:          #FFFFFF;
+      --bg-2:        #F5F6F8;
+      --bg-3:        #EEF0F4;
+      --ink:         #16181D;
+      --ink-soft:    #5C6066;
+      --ink-faint:   #9AA0A8;
+      --line:        #E6E7EB;
+      --line-strong: #D7D9DF;
+      --accent:      #0A84FF;
+      --wave-gradient: linear-gradient(90deg, #2E7BFF 0%, #21C7E6 28%, #3BE0B0 52%, #8E9BFF 78%, #C77DFF 100%);
+      --radius: 16px;
+      --card-shadow: 0 1px 2px rgba(20,24,34,0.04), 0 6px 16px -10px rgba(20,24,34,0.12);
+      --font: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      font-family: var(--font);
+      background: var(--bg-2);
+      color: var(--ink);
+      -webkit-font-smoothing: antialiased;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .topbar { height: 5px; background: var(--wave-gradient); flex-shrink: 0; }
+
+    /* header */
+    .head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 12px 20px;
+      background: var(--bg);
+      border-bottom: 1px solid var(--line);
+      flex-shrink: 0;
+    }
+    .head-left { display: flex; align-items: center; gap: 12px; min-width: 0; }
+    .h-title { font-size: 17px; font-weight: 700; letter-spacing: -0.01em; white-space: nowrap; }
+    .h-title span {
+      background: var(--wave-gradient);
+      -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--bg-2); border: 1px solid var(--line);
+      border-radius: 100px; padding: 5px 14px 5px 10px;
+      font-size: 12px; font-weight: 600; color: var(--ink-soft); white-space: nowrap;
+    }
+    .badge-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: #E0342B; box-shadow: 0 0 0 3px rgba(224,52,43,0.18);
+      animation: pulse 1.4s infinite;
+    }
+    @keyframes pulse {
+      0%,100% { box-shadow: 0 0 0 3px rgba(224,52,43,0.18); }
+      50% { box-shadow: 0 0 0 6px rgba(224,52,43,0.05); }
+    }
+    .h-mode { font-size: 13px; font-weight: 500; color: var(--ink-faint); white-space: nowrap; }
+    .h-controls { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+    .ctrl-btn {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-family: var(--font); font-size: 13px; font-weight: 600; color: var(--ink-soft);
+      background: var(--bg); border: 1px solid var(--line-strong); border-radius: 100px;
+      padding: 8px 14px; cursor: pointer; text-decoration: none;
+      transition: border-color .15s, color .15s;
+    }
+    .ctrl-btn:hover { border-color: var(--ink-faint); color: var(--ink); }
+    .ctrl-btn svg { width: 15px; height: 15px; }
+
+    /* stage: компактный плеер слева + большой чат справа */
+    .stage {
+      flex: 1;
+      min-height: 0;
+      display: grid;
+      grid-template-columns: 440px minmax(0, 1fr);
+      gap: 16px;
+      padding: 16px 20px;
+    }
+
+    .side { display: flex; flex-direction: column; gap: 16px; min-height: 0; }
+
+    .panel {
+      background: var(--bg);
+      border: 1px solid var(--line);
+      box-shadow: var(--card-shadow);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+    .panel-label {
+      font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em;
+      color: var(--ink-faint); padding: 12px 16px 0;
+    }
+
+    /* компактный плеер (нужен, чтобы чат Kinescope инициализировался) */
+    .video-frame {
+      position: relative; width: 100%; aspect-ratio: 16 / 9; background: var(--bg-3);
+      margin-top: 8px;
+    }
+    .video-frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+
+    /* блок «на экране» инфо */
+    .info { padding: 14px 16px 16px; }
+    .info-row { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; padding: 6px 0; }
+    .info-row + .info-row { border-top: 1px solid var(--line); }
+    .info-k { font-size: 13px; color: var(--ink-faint); }
+    .info-v { font-size: 14px; font-weight: 600; color: var(--ink); font-variant-numeric: tabular-nums; }
+
+    /* ЧАТ — главный, на всю высоту */
+    .chat-panel { display: flex; flex-direction: column; min-height: 0; }
+    .chat-head {
+      display: flex; align-items: center; gap: 8px;
+      padding: 14px 18px; border-bottom: 1px solid var(--line);
+      font-size: 15px; font-weight: 700; color: var(--ink); flex-shrink: 0;
+    }
+    .chat-head .dot { width: 8px; height: 8px; border-radius: 50%; background: #3BE0B0; box-shadow: 0 0 0 3px rgba(59,224,176,0.22); }
+    .chat-body { position: relative; flex: 1; min-height: 0; background: var(--bg-2); }
+    .chat-body iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+
+    @media (max-width: 900px) {
+      .stage { grid-template-columns: 1fr; grid-template-rows: auto minmax(360px, 1fr); }
+      .side { flex-direction: row; }
+      .side .panel:first-child { flex: 1; }
+      .side .panel:last-child { display: none; }
+    }
+    @media (max-width: 640px) {
+      .head { padding: 10px 14px; flex-wrap: wrap; }
+      .h-mode { display: none; }
+      .ctrl-btn span { display: none; }
+      .side { flex-direction: column; }
+    }
+  </style> </head> <body> <div class="topbar"></div> <header class="head"> <div class="head-left"> <span class="h-title">Савви <span>2.0</span></span> <span class="badge"><span class="badge-dot"></span>Панель спикера</span> <span class="h-mode">Эфир и комментарии зрителей</span> </div> <div class="h-controls"> <button class="ctrl-btn" id="btn-reload" title="Обновить чат и плеер"> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 4v6h-6M1 20v-6h6"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg> <span>Обновить</span> </button> </div> </header> <div class="stage"> <!-- Левая колонка: компактный плеер + инфо --> <div class="side"> <div class="panel"> <div class="panel-label">На экране</div> <div class="video-frame"> <iframe id="video-frame"
+            src="https://kinescope.io/embed/0cBAaaxPjK4QMMUpphUV8s"
+            allow="autoplay; fullscreen; picture-in-picture; encrypted-media; gyroscope; accelerometer; clipboard-write; screen-wake-lock;"
+            frameborder="0" allowfullscreen></iframe> </div> <div class="info"> <div class="info-row"><span class="info-k">Событие</span><span class="info-v">Савви 2.0</span></div> <div class="info-row"><span class="info-k">Старт</span><span class="info-v">2 июля · 16:00 МСК</span></div> <div class="info-row"><span class="info-k">До эфира</span><span class="info-v" id="countdown">—</span></div> </div> </div> </div> <!-- Правая колонка: большой чат --> <div class="panel chat-panel"> <div class="chat-head"> <span class="dot"></span>
+        Чат трансляции — комментарии зрителей
+      </div> <div class="chat-body" id="chat-body"> <iframe id="chat-frame"
+          src="https://kinescope.io/chat/0cBAaaxPjK4QMMUpphUV8s"
+          allow="fullscreen" frameborder="0" allowfullscreen></iframe> </div> </div> </div> <script>
+    // Обновить плеер и чат
+    document.getElementById('btn-reload').addEventListener('click', () => {
+      ['video-frame','chat-frame'].forEach(id => {
+        const f = document.getElementById(id); const s = f.src;
+        f.src = 'about:blank'; setTimeout(() => { f.src = s; }, 60);
+      });
+    });
+
+    // Обратный отсчёт до эфира
+    const TARGET = new Date('2026-07-02T13:00:00Z'); // 16:00 МСК
+    const cd = document.getElementById('countdown');
+    function pad(n){ return String(n).padStart(2,'0'); }
+    function tick(){
+      const diff = TARGET - Date.now();
+      if (diff <= 0) { cd.textContent = 'В эфире'; cd.style.color = '#E0342B'; return; }
+      const h = Math.floor(diff/3600000), m = Math.floor((diff%3600000)/60000), s = Math.floor((diff%60000)/1000);
+      const d = Math.floor(diff/86400000);
+      cd.textContent = (d>0? d+'д ' : '') + pad(h%24)+':'+pad(m)+':'+pad(s);
+    }
+    tick(); setInterval(tick, 1000);
+  </script> </body> </html> <!-- nominify end --> </div> </div> </div> </div> </div> <!--/allrecords--> <!-- Stat --> <!-- Yandex.Metrika counter 103437548 --> <script type="text/javascript" data-tilda-cookie-type="analytics">setTimeout(function(){(function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})(window,document,"script","https://mc.yandex.ru/metrika/tag.js","ym");window.mainMetrikaId='103437548';ym(window.mainMetrikaId,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor:true,params:{__ym:{"ymCms":{"cms":"tilda","cmsVersion":"1.0"}}},ecommerce:"dataLayer"});},2000);</script> <noscript><div><img src="https://mc.yandex.ru/watch/103437548" style="position:absolute; left:-9999px;" alt="" /> </div> </body></html>
