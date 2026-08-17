@@ -1,0 +1,615 @@
+/* Блок «Решения для автоматизации звонков и чатов» на тильда-главной.
+   Автосборка из astro/src/styles/sections.css (build_solutions_css.py) — не править руками.
+   Значения токенов продублированы локально, чтобы блок не зависел от tokens.css астро-сайта. */
+#shw-solutions {
+  --suvvy-ink-900: #11253E;
+  --suvvy-ink-700: #5E748D;
+  --suvvy-ink-500: #8695A7;
+  --suvvy-ink-400: #99A6B5;
+  --suvvy-border: #D9DEE4;
+  --suvvy-border-soft: #E1E6EC;
+  --suvvy-border-strong: #C3CDD9;
+  --suvvy-accent-blue: #3520FC;
+  --font-sans: 'Onest', Arial, sans-serif;
+  --container: 1200px;
+  --section-py: 80px;
+  --ease: cubic-bezier(0.2, 0, 0, 1);
+  --duration-base: 180ms;
+  /* Шрифт тильдовский (Onest) — как на остальной странице. */
+  font-family: 'Onest', Arial, sans-serif;
+  color: var(--suvvy-ink-900);
+  display: block;
+  -webkit-font-smoothing: antialiased;
+}
+#shw-solutions *, #shw-solutions *::before, #shw-solutions *::after { box-sizing: border-box; }
+#shw-solutions button { font: inherit; color: inherit; }
+/* Ширина как у блока кейсов и у зеро-блоков Тильды: контент начинается на 120px
+   при окне 1440. У астро-сайта своя сетка (шире), но здесь блок должен встать
+   по колонкам страницы, а не по чужим. */
+#shw-solutions .container {
+  width: 100%;
+  max-width: 1240px;
+  margin-inline: auto;
+  padding-inline: 20px;
+}
+
+/* ── чип «5$ приветственный бонус» (.hero__bonus) — sections.css:261–273 ── */
+#shw-solutions .hero__bonus {
+  display: inline-block;
+  padding: 10px 18px;
+  border-radius: 90px;
+  background: rgba(55,57,207,0.10);
+  color: var(--suvvy-accent-blue);
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 28px;
+  transition: background var(--duration-base) var(--ease);
+}
+#shw-solutions .hero__bonus:hover { background: rgba(55,57,207,0.15); }
+/* ── плашка звонка, конец звонка, аудиоплеер — sections.css:552–745 ── */
+/* Живая плашка звонка */
+#shw-solutions .voicebar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #fff;
+  border: 1px solid var(--suvvy-border-soft);
+  border-radius: 90px;
+  padding: 8px 8px 8px 16px;
+  box-shadow: 0 8px 24px -12px rgba(17, 37, 62, 0.18);
+  flex-shrink: 0;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
+#shw-solutions .voicebar__eq {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  height: 16px;
+  color: var(--suvvy-ink-900);
+}
+#shw-solutions .voicebar__eq i {
+  width: 2.5px;
+  border-radius: 2px;
+  background: currentColor;
+  animation: voiceEq 900ms ease-in-out infinite;
+}
+#shw-solutions .voicebar__eq i:nth-child(1) { height: 7px;  animation-delay: 0ms; }
+#shw-solutions .voicebar__eq i:nth-child(2) { height: 14px; animation-delay: 150ms; }
+#shw-solutions .voicebar__eq i:nth-child(3) { height: 9px;  animation-delay: 300ms; }
+#shw-solutions .voicebar__eq i:nth-child(4) { height: 12px; animation-delay: 450ms; }
+@keyframes voiceEq {
+  0%, 100% { transform: scaleY(0.5); }
+  50%      { transform: scaleY(1); }
+}
+#shw-solutions .voicebar__status {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--suvvy-ink-900);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+#shw-solutions .voicebar__dots {
+  display: inline-flex;
+  gap: 3px;
+  margin-left: auto;
+}
+#shw-solutions .voicebar__dots i {
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: var(--suvvy-success-600, #14B825);
+  animation: voiceDot 1.2s ease-in-out infinite;
+}
+#shw-solutions .voicebar__dots i:nth-child(2) { animation-delay: 200ms; }
+#shw-solutions .voicebar__dots i:nth-child(3) { animation-delay: 400ms; }
+@keyframes voiceDot {
+  0%, 100% { opacity: 0.3; }
+  50%      { opacity: 1; }
+}
+#shw-solutions .voicebar__timer {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--suvvy-ink-900);
+  font-variant-numeric: tabular-nums;
+}
+#shw-solutions .voicebar__hangup {
+  width: 38px; height: 38px;
+  flex-shrink: 0;
+  border: none;
+  border-radius: 50%;
+  background: #E5352F;
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+#shw-solutions .voicebar__hangup svg { width: 18px; height: 18px; }
+#shw-solutions .voicebar__hangup:hover { background: #cf2a25; }
+
+/* Блок «Звонок окончен» + плеер */
+#shw-solutions .callend {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  background: #fff;
+  border: 1px solid var(--suvvy-border-soft);
+  border-radius: 16px;
+  padding: 24px;
+  animation: msgIn 360ms var(--ease) both;
+}
+#shw-solutions .callend__head {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+#shw-solutions .callend__avatar {
+  width: 48px; height: 48px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: #8695A7;
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+#shw-solutions .callend__avatar svg { width: 22px; height: 22px; }
+#shw-solutions .callend__title {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--suvvy-ink-900);
+  margin-bottom: 4px;
+}
+#shw-solutions .callend__sub {
+  font-size: 14px;
+  line-height: 1.45;
+  color: var(--suvvy-ink-500);
+}
+
+#shw-solutions .audioplayer {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: var(--suvvy-bg-soft, #F0F4FA);
+  border-radius: 90px;
+  padding: 10px 18px 10px 10px;
+}
+#shw-solutions .audioplayer__play {
+  width: 44px; height: 44px;
+  flex-shrink: 0;
+  border: none;
+  border-radius: 50%;
+  background: #fff;
+  color: var(--suvvy-ink-900);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px -2px rgba(17, 37, 62, 0.18);
+}
+#shw-solutions .audioplayer__play svg { width: 17px; height: 17px; }
+#shw-solutions .audioplayer__wave {
+  flex: 1 1 auto;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  height: 28px;
+  overflow: hidden;
+}
+#shw-solutions .audioplayer__wave i {
+  flex: 1 1 auto;
+  min-width: 2px;
+  border-radius: 2px;
+  background: var(--suvvy-ink-400, #99A6B5);
+  height: 30%;
+}
+#shw-solutions .audioplayer__wave i:nth-child(3n) { height: 70%; }
+#shw-solutions .audioplayer__wave i:nth-child(4n) { height: 45%; }
+#shw-solutions .audioplayer__wave i:nth-child(5n) { height: 90%; }
+#shw-solutions .audioplayer__wave i:nth-child(7n) { height: 55%; }
+#shw-solutions .audioplayer__wave.is-playing i {
+  background: var(--suvvy-ink-700, #5E748D);
+  animation: voiceEq 700ms ease-in-out infinite;
+}
+#shw-solutions .audioplayer__wave.is-playing i:nth-child(2n) { animation-delay: 120ms; }
+#shw-solutions .audioplayer__wave.is-playing i:nth-child(3n) { animation-delay: 240ms; }
+#shw-solutions .audioplayer__wave.is-playing i:nth-child(4n) { animation-delay: 360ms; }
+#shw-solutions .audioplayer__time {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--suvvy-ink-700, #5E748D);
+  font-variant-numeric: tabular-nums;
+  flex-shrink: 0;
+}
+#shw-solutions .audioplayer__dl {
+  border: none;
+  background: transparent;
+  color: var(--suvvy-ink-700, #5E748D);
+  display: inline-flex;
+  align-items: center;
+  padding: 4px;
+  flex-shrink: 0;
+}
+#shw-solutions .audioplayer__dl svg { width: 18px; height: 18px; }
+#shw-solutions .audioplayer__dl:hover { color: var(--suvvy-ink-900); }
+@media (prefers-reduced-motion: reduce) {
+  #shw-solutions .voicebar__eq i, #shw-solutions .voicebar__dots i, #shw-solutions .audioplayer__wave.is-playing i { animation: none; }
+}
+
+/* Entrance animation (used by typing indicator only) */
+#shw-solutions .typing {
+  animation: msgIn 360ms var(--ease) both;
+}
+/* ── сообщения чата (.msg, .botblock) — sections.css:795–846 ── */
+/* Messages */
+#shw-solutions .msg { display: flex; flex-direction: column; gap: 8px; animation: msgIn 360ms var(--ease) both; }
+#shw-solutions .msg__head { display: flex; align-items: center; gap: 10px; }
+#shw-solutions .msg__avatar {
+  width: 30px; height: 30px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 14px;
+  flex-shrink: 0;
+}
+#shw-solutions .msg__avatar--client {
+  background: #E9E7FD;
+  color: #5B4FE0;
+}
+#shw-solutions .msg__avatar--bot {
+  background: transparent;
+}
+#shw-solutions .msg__name { font-size: 16px; color: var(--suvvy-ink-900); font-weight: 700; }
+#shw-solutions .msg__bubble {
+  padding: 13px 18px;
+  border-radius: 14px;
+  border-top-left-radius: 6px;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--suvvy-ink-900);
+}
+/* Client — white, bordered, indented under the name */
+#shw-solutions .msg--client .msg__bubble {
+  margin-left: 40px;
+  background: #FFF;
+  border: 1px solid #E1E6EC;
+}
+/* Bot — single lavender-grey block: logo + name + text together */
+#shw-solutions .botblock {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 16px 18px;
+  border-radius: 16px;
+  background: #EFF1F8;
+}
+#shw-solutions .botblock__head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+#shw-solutions .botblock__mark { display: inline-flex; flex-shrink: 0; }
+#shw-solutions .botblock__name { font-size: 16px; font-weight: 700; color: var(--suvvy-ink-900); }
+#shw-solutions .botblock__text { font-size: 14px; line-height: 1.5; color: var(--suvvy-ink-900); }
+/* ── сам блок Solutions: карточки, чат-превью, голосовой остров — sections.css:930–1221 ── */
+/* ═══════════════════════════════════════════════
+ *  SOLUTIONS — «Решения для автоматизации звонков и чатов»
+ *  Две карточки: Чат-бот (синяя) · Голосовой бот (зелёная)
+ * ═══════════════════════════════════════════════ */
+#shw-solutions .solutions-section {
+  background: #fff;
+  padding-block: var(--section-py);
+}
+#shw-solutions .solutions__title {
+  font-family: "Onest", var(--font-sans);
+  font-size: clamp(32px, 3.4vw, 46px);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--suvvy-ink-900);
+  margin: 16px 0 44px;
+  text-wrap: balance;
+}
+#shw-solutions .solutions__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+#shw-solutions .solcard {
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+  isolation: isolate;
+}
+#shw-solutions .solcard__bg {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+}
+#shw-solutions .solcard--chat .solcard__bg {
+  background: #ECF1FE url("/assets/solcard-bg-chat.png") center / cover no-repeat;
+}
+#shw-solutions .solcard--voice .solcard__bg {
+  background: rgba(220, 255, 226, 0.5) url("/assets/solcard-bg-voice.svg") center / cover no-repeat;
+}
+#shw-solutions .solcard__body {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 30px 52px 34px;
+  height: 100%;
+}
+#shw-solutions .solcard__icon {
+  height: 34px;
+  width: auto;
+  margin-bottom: 18px;
+}
+#shw-solutions .solcard__title {
+  font-family: "Onest", var(--font-sans);
+  font-size: 26px;
+  font-weight: 500;
+  color: var(--suvvy-ink-900);
+  margin: 0 0 12px;
+}
+#shw-solutions .solcard__desc {
+  font-size: 16px;
+  line-height: 1.45;
+  color: var(--suvvy-ink-500);
+  margin: 0;
+  max-width: 44ch;
+  text-wrap: pretty;
+}
+#shw-solutions .solcard__preview {
+  width: 100%;
+  margin-top: 20px;
+  text-align: left;
+}
+
+/* Чат-превью внутри карточки */
+#shw-solutions .solchat {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+/* На светлой карточке блок бота — белый, а не серый */
+.solcard--chat .solchat .botblock,
+#shw-solutions .solcard--chat .ichat .botblock { background: #fff !important; }
+
+/* ───────── Интерактивный чат ───────── */
+#shw-solutions .ichat {
+  display: flex;
+  flex-direction: column;
+  min-height: 300px;
+}
+#shw-solutions .ichat--static {
+  height: auto;
+}
+#shw-solutions .ichat--static .ichat__feed {
+  overflow: visible;
+  flex: 0 0 auto;
+}
+#shw-solutions .ichat__feed {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding-right: 4px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--suvvy-border-strong, #c3cdd9) transparent;
+}
+/* ── Стиль баблов по референсу (scoped — Hero не затрагивается) ── */
+#shw-solutions .ichat .msg { gap: 8px; }
+#shw-solutions .ichat .msg__head { gap: 12px; }
+#shw-solutions .ichat .msg__avatar--client {
+  width: 34px; height: 34px;
+  background: #DCE4F1;
+  color: #8196AE;
+  font-size: 13px;
+}
+#shw-solutions .ichat .msg__name { font-size: 15px; }
+#shw-solutions .ichat .msg__bubble {
+  border-radius: 14px;
+  padding: 13px 16px;
+  font-size: 15px;
+  line-height: 1.5;
+  margin-left: 46px;
+  background: #fff;
+  border: none;
+}
+#shw-solutions .ichat .botblock {
+  border-radius: 14px;
+  padding: 13px 16px;
+  gap: 7px;
+}
+#shw-solutions .ichat .botblock__name { font-size: 15px; }
+#shw-solutions .ichat .botblock__text { font-size: 15px; line-height: 1.5; }
+#shw-solutions .ichat__feed::-webkit-scrollbar { width: 6px; }
+#shw-solutions .ichat__feed::-webkit-scrollbar-thumb { background: var(--suvvy-border-strong, #c3cdd9); border-radius: 90px; }
+#shw-solutions .ichat__bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 12px;
+  background: #fff;
+  border: 1px solid var(--suvvy-border-soft);
+  border-radius: 90px;
+  padding: 6px 6px 6px 18px;
+  flex-shrink: 0;
+}
+#shw-solutions .ichat__input {
+  flex: 1 1 auto;
+  border: none;
+  outline: none;
+  background: transparent;
+  font: inherit;
+  font-size: 14px;
+  color: var(--suvvy-ink-900);
+  min-width: 0;
+}
+#shw-solutions .ichat__input::placeholder { color: var(--suvvy-ink-400, #99A6B5); }
+#shw-solutions .ichat__send {
+  width: 38px; height: 38px;
+  flex-shrink: 0;
+  border: none;
+  border-radius: 50%;
+  background: #3A3DD4;
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background var(--duration-fast, 140ms) var(--ease);
+}
+#shw-solutions .ichat__send svg { width: 17px; height: 17px; }
+#shw-solutions .ichat__send:hover:not(:disabled) { background: #2f31b8; }
+#shw-solutions .ichat__send:disabled { background: var(--suvvy-ink-400, #99A6B5); cursor: default; }
+
+/* ───────── Интерактивный голосовой звонок ───────── */
+#shw-solutions .ivoice {
+  display: flex;
+  flex-direction: column;
+  min-height: 264px;
+  justify-content: center;
+}
+#shw-solutions .ivoice__start {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  text-align: center;
+}
+#shw-solutions .ivoice__hint {
+  font-size: 15px;
+  line-height: 1.45;
+  color: var(--suvvy-ink-500);
+  margin: 0;
+  max-width: 34ch;
+}
+#shw-solutions .ivoice__call {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  border: none;
+  border-radius: 90px;
+  background: #34C759;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
+  padding: 14px 28px;
+  box-shadow: 0 12px 28px -10px rgba(52, 199, 89, 0.6);
+  transition: transform var(--duration-fast, 140ms) var(--ease), background var(--duration-fast, 140ms) var(--ease);
+}
+#shw-solutions .ivoice__call svg { width: 20px; height: 20px; }
+#shw-solutions .ivoice__call:hover { background: #2fb350; }
+#shw-solutions .ivoice__call--block {
+  width: 100%;
+  margin-top: 14px;
+  justify-content: center;
+}
+#shw-solutions .ivoice__feed {
+  margin-top: 18px;
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding-right: 4px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--suvvy-border-strong, #c3cdd9) transparent;
+}
+#shw-solutions .ivoice__feed::-webkit-scrollbar { width: 6px; }
+#shw-solutions .ivoice__feed::-webkit-scrollbar-thumb { background: var(--suvvy-border-strong, #c3cdd9); border-radius: 90px; }
+#shw-solutions .ivoice__err {
+  font-size: 13px;
+  color: var(--suvvy-danger-600, #DF2B2B);
+  background: rgba(223, 43, 43, 0.08);
+  border-radius: 10px;
+  padding: 8px 12px;
+}
+#shw-solutions .ivoice__controls {
+  display: flex;
+  justify-content: center;
+  padding-top: 4px;
+}
+#shw-solutions .ivoice__talk {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: none;
+  border-radius: 90px;
+  background: #fff;
+  color: var(--suvvy-ink-900);
+  font-size: 14px;
+  font-weight: 600;
+  padding: 10px 20px;
+  box-shadow: 0 6px 18px -8px rgba(17, 37, 62, 0.22);
+}
+#shw-solutions .ivoice__talk svg { width: 18px; height: 18px; }
+#shw-solutions .ivoice__talk:disabled { opacity: 0.6; cursor: default; }
+#shw-solutions .ivoice__again {
+  margin-left: auto;
+  border: none;
+  background: transparent;
+  color: #2fb350;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 4px 6px;
+}
+#shw-solutions .ivoice__again:hover { color: #279247; }
+#shw-solutions .callend__avatar--brand { background: #34C759; }
+#shw-solutions .voicebar--static {
+  position: relative;
+  z-index: 2;
+  margin: 0 2px;
+  flex-shrink: 0;
+}
+
+@media (max-width: 1240px) {
+  /* секции с классом .container получают гаттер из base.css автоматически.
+     Здесь — только обёртки, которые ещё НЕ переведены на .container. */
+  #shw-solutions .tm__inner { padding-inline: var(--gutter); }
+  #shw-solutions .sc__inner { padding-inline: var(--gutter); }
+  #shw-solutions .ct__inner { padding-inline: var(--gutter); }
+}
+@media (max-width: 980px) {
+  #shw-solutions .solutions__grid { grid-template-columns: 1fr; }
+  #shw-solutions .solcard { min-height: 0; }
+  #shw-solutions .solcard__body { padding: 40px 28px 44px; }
+}
+
+/* ── Правки порта под Тильду ──────────────────────────────────────────── */
+
+/* Секция сама себе корень: в астро её оборачивал <section class="solutions-section">,
+   здесь эту роль играет #shw-solutions. */
+#shw-solutions { background: #fff; padding-block: var(--section-py); }
+
+/* Картинки-подложки карточек лежат рядом с виджетом, а не в /assets астро-сайта. */
+#shw-solutions .solcard--chat .solcard__bg {
+  background: #ECF1FE url("/widget/solutions/solcard-bg-chat.png") center / cover no-repeat;
+}
+#shw-solutions .solcard--voice .solcard__bg {
+  background: rgba(220, 255, 226, 0.5) url("/widget/solutions/solcard-bg-voice.svg") center / cover no-repeat;
+}
+
+/* Чип бонуса: в астро он inline-block, и на узком экране стрелка срывается на
+   вторую строку. Флексом стрелка остаётся при тексте. */
+#shw-solutions .hero__bonus {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+#shw-solutions .hero__bonus svg { flex-shrink: 0; }
+
+/* Тильда задаёт глобальные стили спискам и заголовкам — гасим их внутри блока. */
+#shw-solutions h2, #shw-solutions h3, #shw-solutions p { margin: 0; }
+#shw-solutions a { text-decoration: none; }
