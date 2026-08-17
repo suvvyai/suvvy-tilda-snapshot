@@ -2,6 +2,18 @@
 	root * /srv
 	encode gzip
 	header X-Robots-Tag "noindex, nofollow"
+
+	# Кэш статики. Раньше заголовков не было вообще — на каждый повторный заход
+	# браузер бил ~250 условных запросов (304), и каждый стоил round-trip.
+	# Имена файлов Тильды содержат хэш содержимого, наши сборки перевыкладываются
+	# целиком, поэтому иммутабельный годовой кэш безопасен.
+	@static path /t/images/* /t/css/* /t/js/* /t/fonts/* /widget/* /_astro/* /images/* /css/* /js/*
+	header @static Cache-Control "public, max-age=31536000, immutable"
+
+	# HTML не кэшируем: он меняется при каждой правке блока, а адреса постоянные.
+	@html path / *.html */
+	header @html Cache-Control "no-cache"
+
 	map {path} {tilda_dest} {
 		/                                                    /page59660037.html
 		/1                                                   /page126146236.html
