@@ -8,10 +8,10 @@
  * со сдвигом (кирпичная кладка), у каждого — скобки-уголки по бокам.
  * Заголовок в общем стиле сайта: слева, как у «Результатов клиентов Савви».
  *
- * Цвета НЕ приводим к одному серому (первая версия так делала — «Выручка»
- * терялась). Тёмные логотипы красим в белый силуэт (brightness(0) invert(1)),
- * а «Выручку», astana hub и «Союз Мастеров» оставляем родными — они для
- * тёмного фона и так подходят. Класс на элементе: white | native.
+ * Фон — светлый градиент, как у блока «Подключение каналов», логотипы на
+ * стеклянных плашках (backdrop-blur). На светлом почти все живут родными
+ * цветами (mode: native); белые логотипы (astana hub, «Союз Мастеров»)
+ * перекрашиваются в тёмный силуэт (mode: dark), иначе они невидимы.
  */
 (function () {
   'use strict';
@@ -25,21 +25,21 @@
   // «тяжёлые» знаки не слипались.
   var ROWS = [
     [
-      { f: 'astana-hub.png', alt: 'Astana Hub', h: 36, mode: 'native' },
-      { f: 'el-cosmo.png', alt: "EL'COSMO", h: 40, mode: 'white' },
-      { f: 'mmb-russia.png', alt: 'MMB Russia', h: 34, mode: 'white' },
-      { f: 'vicekeeper.svg', alt: 'Vicekeeper', h: 48, mode: 'white' },
+      { f: 'astana-hub.png', alt: 'Astana Hub', h: 36, mode: 'dark' },
+      { f: 'el-cosmo.png', alt: "EL'COSMO", h: 40, mode: 'native' },
+      { f: 'mmb-russia.png', alt: 'MMB Russia', h: 34, mode: 'native' },
+      { f: 'vicekeeper.svg', alt: 'Vicekeeper', h: 48, mode: 'native' },
     ],
     [
-      { f: 'defure.svg', alt: 'Defure Furniture', h: 32, mode: 'white' },
-      { f: 'simple-k.webp', alt: 'Simple K', h: 56, mode: 'white' },
-      { f: 'finntrail.webp', alt: 'Finntrail', h: 22, mode: 'white' },
-      { f: 'vyruchka.svg', alt: 'Ломбард «Выручка»', h: 44, mode: 'invert' },
+      { f: 'defure.svg', alt: 'Defure Furniture', h: 32, mode: 'native' },
+      { f: 'simple-k.webp', alt: 'Simple K', h: 56, mode: 'native' },
+      { f: 'finntrail.webp', alt: 'Finntrail', h: 22, mode: 'native' },
+      { f: 'vyruchka.svg', alt: 'Ломбард «Выручка»', h: 44, mode: 'native' },
     ],
     [
-      { f: 'boostra.svg', alt: 'Boostra', h: 28, mode: 'white' },
-      { f: 'brus-decor.png', alt: 'Brus Decor', h: 48, mode: 'white' },
-      { f: 'soyuz-masterov.png', alt: 'Союз Мастеров', h: 52, mode: 'native' },
+      { f: 'boostra.svg', alt: 'Boostra', h: 28, mode: 'native' },
+      { f: 'brus-decor.png', alt: 'Brus Decor', h: 48, mode: 'native' },
+      { f: 'soyuz-masterov.png', alt: 'Союз Мастеров', h: 52, mode: 'dark' },
     ],
   ];
 
