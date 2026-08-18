@@ -1,7 +1,8 @@
-/* «Нам доверяют» — лента логотипов клиентов (suvvy-clients.js). */
+/* «Нам доверяют» — тёмная панель логотипов (suvvy-clients.js). */
 #shw-clients {
   background: #fff;
-  padding: 8px 0 64px; /* сверху меньше: над нами серый низ «Результатов» */
+  /* Отступ сверху — от серого низа «Результатов клиентов Савви». */
+  padding: 72px 0 72px;
   font-family: 'Onest', Arial, sans-serif;
 }
 #shw-clients .sclients__inner {
@@ -10,42 +11,88 @@
   margin-inline: auto;
   padding-inline: 20px;
 }
-#shw-clients .sclients__label {
-  text-align: center;
-  font-size: 14px;
+/* Заголовок — в общем стиле сайта: слева, как у «Результатов клиентов Савви». */
+#shw-clients .sclients__title {
+  font-size: clamp(28px, 3vw, 34px);
   font-weight: 500;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: #8695A7;
-  margin-bottom: 32px;
+  letter-spacing: -0.02em;
+  color: #11253E;
+  margin: 0 0 28px;
+}
+#shw-clients .sclients__panel {
+  background: #0E1524;
+  border-radius: 24px;
+  padding: 52px 44px;
+  overflow: hidden;
+  /* лёгкое синее свечение, как в референсе */
+  background-image: radial-gradient(900px 320px at 82% 110%, rgba(53, 32, 252, 0.28), transparent 70%),
+    radial-gradient(700px 260px at 8% -20%, rgba(53, 32, 252, 0.16), transparent 70%);
 }
 #shw-clients .sclients__row {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
   align-items: center;
-  column-gap: 44px;
-  row-gap: 36px;
+  justify-content: center;
+  column-gap: 64px;
+  row-gap: 28px;
+  flex-wrap: wrap;
 }
+#shw-clients .sclients__row + .sclients__row { margin-top: 40px; }
+/* Кирпичная кладка: чётный ряд сдвинут, как в референсе. */
+#shw-clients .sclients__row--2 { transform: translateX(28px); }
+#shw-clients .sclients__row--3 { transform: translateX(-20px); }
+
+/* Скобки-уголки по бокам логотипа, как в референсе. */
+#shw-clients .sclients__cell {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 26px;
+}
+#shw-clients .sclients__cell::before,
+#shw-clients .sclients__cell::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+}
+#shw-clients .sclients__cell::before { left: 0; border-right: none; }
+#shw-clients .sclients__cell::after { right: 0; border-left: none; }
+
 #shw-clients .sclients__logo {
   width: auto;
-  /* Единый серый силуэт: brightness(0) красит любой логотип (в т.ч. белый
-     «Союз Мастеров», который иначе невидим на белом) в чёрный, opacity глушит. */
-  filter: brightness(0);
-  opacity: 0.38;
-  transition: filter 180ms ease, opacity 180ms ease;
+  display: block;
 }
-#shw-clients .sclients__logo:hover {
-  filter: none;
-  opacity: 1;
+/* Тёмные логотипы — белым силуэтом; при наведении чуть ярче. */
+#shw-clients .sclients__logo--white {
+  filter: brightness(0) invert(1);
+  opacity: 0.85;
+  transition: opacity 180ms ease;
 }
-/* Белый логотип при наведении оставляем силуэтом, но плотнее — иначе исчезнет. */
-#shw-clients .sclients__logo[src*="soyuz-masterov"]:hover {
-  filter: brightness(0);
-  opacity: 0.75;
+/* «Выручка»: тёмно-синий текст на тёмном не читается. Инверсия с возвратом
+   оттенков (invert + hue-rotate) осветляет текст, зелёная лента остаётся зелёной. */
+#shw-clients .sclients__logo--invert {
+  filter: invert(1) hue-rotate(180deg);
+  opacity: 0.95;
+  transition: opacity 180ms ease;
 }
-@media (max-width: 640px) {
-  #shw-clients { padding-bottom: 48px; }
-  #shw-clients .sclients__row { column-gap: 32px; row-gap: 24px; }
-  #shw-clients .sclients__logo { transform: scale(0.8); }
+
+/* Родные цвета (astana hub, Союз Мастеров) — только приглушаем. */
+#shw-clients .sclients__logo--native {
+  opacity: 0.92;
+  transition: opacity 180ms ease;
+}
+#shw-clients .sclients__cell:hover .sclients__logo { opacity: 1; }
+
+@media (max-width: 960px) {
+  #shw-clients { padding: 56px 0; }
+  #shw-clients .sclients__panel { padding: 36px 24px; border-radius: 20px; }
+  #shw-clients .sclients__row { column-gap: 36px; }
+  #shw-clients .sclients__row--2,
+  #shw-clients .sclients__row--3 { transform: none; }
+  #shw-clients .sclients__row + .sclients__row { margin-top: 24px; }
+  #shw-clients .sclients__cell { padding: 10px 16px; }
+  #shw-clients .sclients__logo { transform: scale(0.82); }
 }

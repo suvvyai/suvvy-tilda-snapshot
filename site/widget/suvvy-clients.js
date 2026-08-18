@@ -1,14 +1,17 @@
-/* «Нам доверяют» — лента логотипов клиентов на тильда-главной.
+/* «Нам доверяют» — панель логотипов клиентов на тильда-главной.
  *
- * Наш блок (не портирован из Тильды/астро — таких там нет). Встаёт между
- * «Результатами клиентов Савви» и «Решениями»: якорь — #shw-solutions
- * (вставляемся перед ним), пока того нет — после #shw-cases, совсем без них —
- * после зеро-блока героя. Boot-цикл сам доводит порядок до нужного.
+ * Наш блок (в Тильде/астро его нет). Встаёт между «Результатами клиентов Савви»
+ * и «Решениями»: якорь — #shw-solutions (вставляемся перед ним), пока того нет —
+ * после #shw-cases, совсем без них — после зеро-блока героя.
  *
- * Логотипы приглушены единообразно: filter brightness(0) + opacity — любой
- * цветной/белый логотип становится одинаково серым силуэтом; при наведении
- * возвращается родной цвет. «Союз Мастеров» — белый PNG: без brightness(0)
- * на белом фоне он невидим, поэтому подход силуэтов ещё и обязателен.
+ * Оформление — по референсу пользователя: тёмная панель, логотипы рядами
+ * со сдвигом (кирпичная кладка), у каждого — скобки-уголки по бокам.
+ * Заголовок в общем стиле сайта: слева, как у «Результатов клиентов Савви».
+ *
+ * Цвета НЕ приводим к одному серому (первая версия так делала — «Выручка»
+ * терялась). Тёмные логотипы красим в белый силуэт (brightness(0) invert(1)),
+ * а «Выручку», astana hub и «Союз Мастеров» оставляем родными — они для
+ * тёмного фона и так подходят. Класс на элементе: white | native.
  */
 (function () {
   'use strict';
@@ -17,17 +20,27 @@
   var AFTER = 'shw-cases';
   var AFTER_REC = 'rec841335670';
 
-  // h — высота логотипа в пикселях: у знаков разная плотность, одной высотой
-  // на всех строй не выровнять (сверялось на глаз по превью).
-  var LOGOS = [
-    { f: 'mmb-russia.png', alt: 'MMB Russia', h: 32 },
-    { f: 'vicekeeper.svg', alt: 'Vicekeeper', h: 46 },
-    { f: 'defure.svg', alt: 'Defure Furniture', h: 30 },
-    { f: 'boostra.svg', alt: 'Boostra', h: 26 },
-    { f: 'brus-decor.png', alt: 'Brus Decor', h: 46 },
-    { f: 'vyruchka.svg', alt: 'Ломбард «Выручка»', h: 38 },
-    { f: 'soyuz-masterov.png', alt: 'Союз Мастеров', h: 48 },
-    { f: 'el-cosmo.png', alt: "EL'COSMO", h: 40 },
+  // h — высота логотипа: плотность знаков разная, одной высотой строй не выровнять.
+  // Ряды 4/4/3 со сдвигом, как в референсе; порядок подобран, чтобы соседние
+  // «тяжёлые» знаки не слипались.
+  var ROWS = [
+    [
+      { f: 'astana-hub.png', alt: 'Astana Hub', h: 36, mode: 'native' },
+      { f: 'el-cosmo.png', alt: "EL'COSMO", h: 40, mode: 'white' },
+      { f: 'mmb-russia.png', alt: 'MMB Russia', h: 34, mode: 'white' },
+      { f: 'vicekeeper.svg', alt: 'Vicekeeper', h: 48, mode: 'white' },
+    ],
+    [
+      { f: 'defure.svg', alt: 'Defure Furniture', h: 32, mode: 'white' },
+      { f: 'simple-k.webp', alt: 'Simple K', h: 56, mode: 'white' },
+      { f: 'finntrail.webp', alt: 'Finntrail', h: 22, mode: 'white' },
+      { f: 'vyruchka.svg', alt: 'Ломбард «Выручка»', h: 44, mode: 'invert' },
+    ],
+    [
+      { f: 'boostra.svg', alt: 'Boostra', h: 28, mode: 'white' },
+      { f: 'brus-decor.png', alt: 'Brus Decor', h: 48, mode: 'white' },
+      { f: 'soyuz-masterov.png', alt: 'Союз Мастеров', h: 52, mode: 'native' },
+    ],
   ];
 
   function baseUrl() {
@@ -44,12 +57,18 @@
     s.id = 'shw-clients';
     s.innerHTML =
       '<div class="sclients__inner">' +
-        '<div class="sclients__label">Нам доверяют</div>' +
-        '<div class="sclients__row">' +
-          LOGOS.map(function (l) {
-            return '<img class="sclients__logo" src="' + BASE + 'clients/' + l.f +
-              '" alt="' + l.alt + '" title="' + l.alt + '" style="height:' + l.h + 'px"' +
-              ' loading="lazy" decoding="async">';
+        '<h2 class="sclients__title">Нам доверяют</h2>' +
+        '<div class="sclients__panel">' +
+          ROWS.map(function (row, i) {
+            return '<div class="sclients__row sclients__row--' + (i + 1) + '">' +
+              row.map(function (l) {
+                return '<span class="sclients__cell">' +
+                  '<img class="sclients__logo sclients__logo--' + l.mode + '" src="' +
+                  BASE + 'clients/' + l.f + '" alt="' + l.alt + '" title="' + l.alt +
+                  '" style="height:' + l.h + 'px" loading="lazy" decoding="async">' +
+                '</span>';
+              }).join('') +
+            '</div>';
           }).join('') +
         '</div>' +
       '</div>';
@@ -66,8 +85,7 @@
   }
   injectCss();
 
-  // Та же схема, что у остальных наших блоков: Тильда пересобирает <body>,
-  // поэтому следим и вставляем заново, пока страница не устоится.
+  // Тильда пересобирает <body> — следим и вставляем заново, пока не устоится.
   var tries = 0;
   (function boot() {
     var s = document.getElementById('shw-clients');
