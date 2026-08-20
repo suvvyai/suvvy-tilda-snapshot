@@ -183,13 +183,15 @@
   (function boot() {
     var s = document.getElementById('shw-clients');
     if (!s) {
-      var sol = document.getElementById(BEFORE);
-      var cases = document.getElementById(AFTER);
+      // Порядок по решению фаундера: герой+преимущества → «Нам доверяют» →
+      // «Результаты клиентов». Основной якорь — сразу после герой-секции.
       var rec = document.getElementById(AFTER_REC);
+      var cases = document.getElementById(AFTER);
+      var sol = document.getElementById(BEFORE);
       var node = build();
-      if (sol) sol.parentNode.insertBefore(node, sol);
-      else if (cases) cases.parentNode.insertBefore(node, cases.nextSibling);
-      else if (rec) rec.parentNode.insertBefore(node, rec.nextSibling);
+      if (rec) rec.parentNode.insertBefore(node, rec.nextSibling);
+      else if (cases) cases.parentNode.insertBefore(node, cases);
+      else if (sol) sol.parentNode.insertBefore(node, sol);
       else node = null;
       if (node) rotate(node);
     }
