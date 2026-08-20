@@ -1,5 +1,6 @@
-/* «Нам доверяют» — светлая градиентная панель со стеклянными плашками
-   (suvvy-clients.js). Фон повторяет блок «Подключение каналов». */
+/* «Нам доверяют» — логотипы клиентов на белом, лентой (suvvy-clients.js).
+   Без панели и плашек: 5 слотов в ряд, в каждом логотипы сменяют друг друга
+   вертикальным проездом. */
 #shw-clients {
   background: #fff;
   /* Отступ сверху — от серого низа «Результатов клиентов Савви». */
@@ -20,68 +21,74 @@
   color: #11253E;
   margin: 0 0 28px;
 }
-/* Светлая панель с мягкими сине-сиреневыми пятнами, как у «Подключения каналов». */
-#shw-clients .sclients__panel {
-  background: #F2F4FC;
-  background-image:
-    radial-gradient(560px 420px at -6% 30%, rgba(84, 90, 224, 0.32), transparent 65%),
-    radial-gradient(520px 380px at 104% 88%, rgba(120, 130, 250, 0.26), transparent 65%),
-    radial-gradient(420px 300px at 88% -12%, rgba(160, 140, 255, 0.16), transparent 70%);
-  border-radius: 24px;
-  padding: 52px 44px;
-  overflow: hidden;
-}
-#shw-clients .sclients__row {
-  display: flex;
-  align-items: stretch;
-  justify-content: center;
-  column-gap: 24px;
-  row-gap: 24px;
-  flex-wrap: wrap;
-}
-#shw-clients .sclients__row + .sclients__row { margin-top: 24px; }
-/* Кирпичная кладка: ряды слегка сдвинуты, как в референсе. */
-#shw-clients .sclients__row--2 { transform: translateX(26px); }
-#shw-clients .sclients__row--3 { transform: translateX(-18px); }
 
-/* Стеклянная плашка под логотипом. */
-#shw-clients .sclients__cell {
-  display: inline-flex;
+/* Ровно 5 в ряд: колонки тянутся, ширину слота не хардкодим (на фиксированной
+   ширине ряд разъезжался на две строки уже при 1280px). */
+#shw-clients .sclients__slots {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 32px;
+  align-items: center;
+}
+/* Высота слота с запасом под самый высокий логотип (72px). */
+#shw-clients .sclients__slot {
+  position: relative;
+  height: 88px;
+  overflow: hidden;
+  display: flex;
   align-items: center;
   justify-content: center;
-  min-width: 200px;
-  min-height: 88px;
-  padding: 16px 28px;
-  border-radius: 18px;
-  background: rgba(255, 255, 255, 0.55);
-  -webkit-backdrop-filter: blur(14px);
-  backdrop-filter: blur(14px);
-  border: 1px solid rgba(255, 255, 255, 0.85);
-  box-shadow: 0 8px 24px rgba(17, 37, 62, 0.06);
-  transition: box-shadow 180ms ease, transform 180ms ease;
-}
-#shw-clients .sclients__cell:hover {
-  box-shadow: 0 12px 32px rgba(17, 37, 62, 0.11);
-  transform: translateY(-2px);
 }
 
+/* Лента: старый и новый едут ОДНОВРЕМЕННО, новый идёт сверху следом за старым. */
+#shw-clients .sclients__face {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: translateY(0);
+}
+#shw-clients .sclients__face.is-anim {
+  transition: transform 900ms cubic-bezier(0.5, 0, 0.15, 1);
+}
+#shw-clients .sclients__face.is-above { transform: translateY(-100%); }
+#shw-clients .sclients__face.is-below { transform: translateY(100%); }
+
+/* Высоту задаёт --h (своя на логотип): у квадратных знаков общий кэп даёт
+   вдвое меньшее пятно, чем у широких. */
 #shw-clients .sclients__logo {
+  height: var(--h, 52px);
+  max-width: 100%;
+  max-height: 100%;
   width: auto;
+  object-fit: contain;
   display: block;
 }
-/* Белые логотипы (astana hub, Союз Мастеров) на светлом невидимы — тёмный силуэт. */
+/* Белый логотип («Союз Мастеров») на светлом невидим — тёмный силуэт. */
 #shw-clients .sclients__logo--dark {
   filter: brightness(0);
   opacity: 0.78;
 }
 
+/* На узких — переносим ряд, неполную строку центрируем (грид прижал бы её влево). */
 @media (max-width: 960px) {
   #shw-clients { padding: 56px 0; }
-  #shw-clients .sclients__panel { padding: 28px 20px; border-radius: 20px; }
-  #shw-clients .sclients__row { column-gap: 14px; row-gap: 14px; }
-  #shw-clients .sclients__row + .sclients__row { margin-top: 14px; }
-  #shw-clients .sclients__row--2,
-  #shw-clients .sclients__row--3 { transform: none; }
-  #shw-clients .sclients__cell { min-width: 0; flex: 1 1 40%; max-width: 46%; min-height: 64px; padding: 8px 10px; }
-  #shw-clients .sclients__logo { transform: scale(0.78); }
+  #shw-clients .sclients__slots {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 28px 24px;
+  }
+  #shw-clients .sclients__slot { flex: 0 0 calc(33.333% - 16px); height: 66px; }
+  /* пропорции между логотипами сохраняем, масштабируем весь набор разом */
+  #shw-clients .sclients__logo { height: calc(var(--h, 52px) * 0.72); }
+}
+@media (max-width: 460px) {
+  #shw-clients .sclients__slot { flex-basis: calc(50% - 12px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  #shw-clients .sclients__face.is-anim { transition: none; }
+  #shw-clients .sclients__face.is-above,
+  #shw-clients .sclients__face.is-below { transform: none; }
 }
