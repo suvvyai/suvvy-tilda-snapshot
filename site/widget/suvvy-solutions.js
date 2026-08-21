@@ -95,12 +95,6 @@
     s.id = 'shw-solutions';
     s.innerHTML =
       '<div class="solutions container">' +
-        '<a href="https://suvvy.ai/signup" class="hero__bonus solutions__bonus">' +
-          '5$ приветственный бонус на вашем аккаунте' +
-          '<svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" ' +
-          'stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
-          '<path d="M6 4l4 4-4 4"/></svg>' +
-        '</a>' +
         '<h2 class="solutions__title">Решения для автоматизации звонков и чатов</h2>' +
         '<div class="solutions__grid">' +
           '<article class="solcard solcard--chat">' +

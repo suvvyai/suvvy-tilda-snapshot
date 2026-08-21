@@ -613,3 +613,12 @@
 /* Тильда задаёт глобальные стили спискам и заголовкам — гасим их внутри блока. */
 #shw-solutions h2, #shw-solutions h3, #shw-solutions p { margin: 0; }
 #shw-solutions a { text-decoration: none; }
+
+/* Правки по решению фаундера (2026-08-21): чип бонуса убран из разметки;
+   заголовок легче (как у остальных секций), отступы секции компактнее. */
+#shw-solutions { padding-block: 40px 72px; }
+#shw-solutions .solutions__title { font-weight: 500; margin-top: 0; }
+@media (max-width: 760px) {
+  #shw-solutions { padding-block: 24px 48px; }
+  #shw-solutions .solutions__title { margin-bottom: 28px; }
+}
