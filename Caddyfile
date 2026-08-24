@@ -136,11 +136,6 @@
 		/web-hr/                                             /page153397926.html
 		default                                              {path}
 	}
-	# Красивые адреса эталона (например /en/contact) РЕДИРЕКТЯТ на файл выгрузки,
-	# а не подменяются: CSS/JS в выгрузке относительные (css/…), и с адреса
-	# глубже одного уровня они резолвились в /en/css/… → 404 → голый HTML.
-	@pretty expression `"{tilda_dest}" != "{path}"`
-	redir @pretty {tilda_dest} 302
 	rewrite {tilda_dest}
 	file_server
 	handle_errors {
