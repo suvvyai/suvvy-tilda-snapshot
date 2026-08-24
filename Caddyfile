@@ -136,6 +136,12 @@
 		/web-hr/                                             /page153397926.html
 		default                                              {path}
 	}
+	# Единственные красивые адреса глубже одного уровня. Их РЕДИРЕКТИМ на файл
+	# выгрузки, а не подменяем: CSS/JS в выгрузке относительные (css/…), и с
+	# подпути они резолвились в /en/css/… → 404 → страница без вёрстки.
+	redir /en/contact /page62151623.html 302
+	redir /en/contact/ /page62151623.html 302
+
 	rewrite {tilda_dest}
 	file_server
 	handle_errors {
