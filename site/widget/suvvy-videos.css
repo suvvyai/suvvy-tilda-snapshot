@@ -1,0 +1,166 @@
+/* «Савви на конференциях» (suvvy-videos.js) — прожектор с переключателем,
+   вариант D мокапа video-section.html, в общем стиле секций сайта. */
+#shw-videos {
+  background: #fff;
+  padding: 64px 0 8px;
+  font-family: 'Onest', Arial, sans-serif;
+  color: #11253E;
+  -webkit-font-smoothing: antialiased;
+}
+#shw-videos *, #shw-videos *::before, #shw-videos *::after { box-sizing: border-box; }
+#shw-videos .svid__inner {
+  width: 100%;
+  max-width: 1240px;
+  margin-inline: auto;
+  padding-inline: 20px;
+}
+/* Заголовок — как у остальных секций: слева, вес 500. */
+#shw-videos .svid__title {
+  font-size: clamp(28px, 3vw, 34px);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  color: #11253E;
+  margin: 0 0 28px;
+}
+
+#shw-videos .svid__panel {
+  background: #fff;
+  border: 1px solid #E1E6EC;
+  border-radius: 20px;
+  overflow: hidden;
+}
+#shw-videos .svid__stage {
+  position: relative;
+  aspect-ratio: 20 / 9;
+  background: linear-gradient(120deg, #11253E 0%, #1B2F52 52%, #2A1E63 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+#shw-videos .svid__stage--playing { cursor: default; }
+#shw-videos .svid__stage iframe,
+#shw-videos .svid__stage > video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+#shw-videos .svid__stage > video:not(.svid__previewvid) { object-fit: contain; background: #0B111C; }
+/* Живой беззвучный предпросмотр (mp4): заполняет сцену, мета читается поверх тени. */
+#shw-videos .svid__previewvid {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+#shw-videos .svid__shade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(11, 17, 28, .72) 0%, rgba(11, 17, 28, .12) 45%, rgba(11, 17, 28, 0) 70%);
+}
+#shw-videos .svid__bg {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(120% 90% at 15% 120%, rgba(196, 169, 255, .35), transparent 60%),
+    radial-gradient(80% 60% at 90% -10%, rgba(238, 14, 168, .25), transparent 60%);
+}
+#shw-videos .svid__stagemeta {
+  position: absolute;
+  left: 24px;
+  bottom: 22px;
+  z-index: 1;
+  color: #fff;
+  max-width: 70%;
+}
+#shw-videos .svid__conf {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: #fff;
+  background: rgba(255, 255, 255, .14);
+  border: 1px solid rgba(255, 255, 255, .28);
+  border-radius: 90px;
+  padding: 5px 11px;
+  margin-bottom: 10px;
+}
+#shw-videos .svid__stagetitle {
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 1.28;
+  margin: 0 0 8px;
+  text-wrap: balance;
+}
+#shw-videos .svid__stagedesc {
+  font-size: 12.5px;
+  color: #C3CEDE;
+  margin: 0;
+  line-height: 1.5;
+}
+#shw-videos .svid__play {
+  position: relative;
+  z-index: 1;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, .94);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 20px -6px rgba(0, 0, 0, .35);
+  transition: transform .18s cubic-bezier(.2, 0, 0, 1);
+}
+#shw-videos .svid__stage:hover .svid__play { transform: scale(1.08); }
+#shw-videos .svid__play svg { width: 18px; height: 18px; margin-left: 2px; }
+
+/* Вкладки-переключатели (появляются, когда видео больше одного). */
+#shw-videos .svid__tabs {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;
+  border-top: 1px solid #E1E6EC;
+}
+#shw-videos .svid__tab {
+  padding: 16px 18px;
+  text-align: left;
+  background: none;
+  border: 0;
+  border-right: 1px solid #E1E6EC;
+  font: inherit;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+#shw-videos .svid__tab:last-child { border-right: 0; }
+#shw-videos .svid__tab.is-active { background: #F0F4FA; }
+#shw-videos .svid__tabconf {
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: #8695A7;
+}
+#shw-videos .svid__tab.is-active .svid__tabconf { color: #9117D2; }
+#shw-videos .svid__tabtitle {
+  font-size: 13px;
+  font-weight: 600;
+  color: #11253E;
+  line-height: 1.35;
+}
+
+@media (max-width: 900px) {
+  #shw-videos { padding: 48px 0 8px; }
+  #shw-videos .svid__stage { aspect-ratio: 16 / 9; }
+  #shw-videos .svid__tabs { grid-auto-flow: row; grid-auto-columns: unset; }
+  #shw-videos .svid__tab { border-right: 0; border-bottom: 1px solid #E1E6EC; }
+  #shw-videos .svid__tab:last-child { border-bottom: 0; }
+  #shw-videos .svid__stagemeta { left: 16px; bottom: 14px; max-width: 82%; }
+  #shw-videos .svid__stagetitle { font-size: 16px; }
+  #shw-videos .svid__play { width: 44px; height: 44px; }
+}
