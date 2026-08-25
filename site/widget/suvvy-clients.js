@@ -17,6 +17,15 @@
 (function () {
   'use strict';
 
+  // Версия из подключения скрипта (?v=N) переносится на CSS — /widget/*
+  // у старых посетителей мог засесть в годовом кэше.
+  function cssVer() {
+    var n = document.querySelectorAll('script[src*="suvvy-clients.js"]');
+    var s = document.currentScript || n[n.length - 1];
+    var m = s && s.src.match(/\?v=\d+/);
+    return m ? m[0] : '';
+  }
+
   var BEFORE = 'shw-solutions';
   var AFTER = 'shw-cases';
   var AFTER_REC = 'rec841335670';
@@ -169,7 +178,7 @@
   }
 
   function injectCss() {
-    var href = BASE + 'suvvy-clients.css';
+    var href = BASE + 'suvvy-clients.css' + cssVer();
     if (document.querySelector('link[href="' + href + '"]')) return;
     var l = document.createElement('link');
     l.rel = 'stylesheet';

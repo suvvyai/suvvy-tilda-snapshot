@@ -17,6 +17,15 @@
 (function () {
   'use strict';
 
+  // Версия из подключения скрипта (?v=N) переносится на CSS — /widget/*
+  // у старых посетителей мог засесть в годовом кэше.
+  function cssVer() {
+    var n = document.querySelectorAll('script[src*="suvvy-solutions.js"]');
+    var s = document.currentScript || n[n.length - 1];
+    var m = s && s.src.match(/\?v=\d+/);
+    return m ? m[0] : '';
+  }
+
   // Вставляем после блока кейсов; пока его нет — после зеро-блока героя.
   // Порядок сходится сам: если кейсы вставятся позже, они встанут между героем
   // и этим блоком, что и нужно.
@@ -186,7 +195,7 @@
       var n = document.querySelectorAll('script[src*="suvvy-solutions.js"]');
       return n[n.length - 1];
     })();
-    var href = self ? self.src.replace(/suvvy-solutions\.js.*$/, 'suvvy-solutions.css') : 'suvvy-solutions.css';
+    var href = (self ? self.src.replace(/suvvy-solutions\.js.*$/, 'suvvy-solutions.css') : 'suvvy-solutions.css') + cssVer();
     if (document.querySelector('link[href="' + href + '"]')) return;
     var l = document.createElement('link');
     l.rel = 'stylesheet';

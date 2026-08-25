@@ -16,13 +16,22 @@
 (function () {
   'use strict';
 
+  // Версия из подключения скрипта (?v=N) переносится на CSS — /widget/*
+  // у старых посетителей мог засесть в годовом кэше.
+  function cssVer() {
+    var n = document.querySelectorAll('script[src*="suvvy-videos.js"]');
+    var s = document.currentScript || n[n.length - 1];
+    var m = s && s.src.match(/\?v=\d+/);
+    return m ? m[0] : '';
+  }
+
   var BEFORE = 'shw-solutions';
   var AFTER = 'shw-cases';
 
   var VIDEOS = [
     {
       conf: 'АМОКОНФ 2026',
-      title: 'Выступление Антона Бесщетникова',
+      title: 'Выступление Антона Бесщетникова на АМОКОНФ',
       meta: 'Антон Бесщетников · фаундер Савви',
       oid: '-230256025', id: '456239057', list: 'f18a87775e6eafe264',
       // Тизер: 4 фрагмента выступления по 4с (ffmpeg из ролика ВК), 335 КБ,
@@ -57,7 +66,7 @@
   var BASE = baseUrl();
 
   function injectCss() {
-    var href = BASE + 'suvvy-videos.css';
+    var href = BASE + 'suvvy-videos.css' + cssVer();
     if (document.querySelector('link[href="' + href + '"]')) return;
     var l = document.createElement('link');
     l.rel = 'stylesheet';

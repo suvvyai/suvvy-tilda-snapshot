@@ -20,6 +20,15 @@
 (function () {
   'use strict';
 
+  // Версия из подключения скрипта (?v=N) переносится на CSS — /widget/*
+  // у старых посетителей мог засесть в годовом кэше.
+  function cssVer() {
+    var n = document.querySelectorAll('script[src*="suvvy-cases.js"]');
+    var s = document.currentScript || n[n.length - 1];
+    var m = s && s.src.match(/\?v=\d+/);
+    return m ? m[0] : '';
+  }
+
   var AFTER_REC = 'rec841335670'; // зеро-блок героя (в нём же три буллита) — вставляем сразу после
   var A = '/widget/cases/';
 
@@ -239,7 +248,7 @@
       var n = document.querySelectorAll('script[src*="suvvy-cases.js"]');
       return n[n.length - 1];
     })();
-    var href = self ? self.src.replace(/suvvy-cases\.js.*$/, 'suvvy-cases.css') : 'suvvy-cases.css';
+    var href = (self ? self.src.replace(/suvvy-cases\.js.*$/, 'suvvy-cases.css') : 'suvvy-cases.css') + cssVer();
     if (document.querySelector('link[href="' + href + '"]')) return;
     var l = document.createElement('link');
     l.rel = 'stylesheet';

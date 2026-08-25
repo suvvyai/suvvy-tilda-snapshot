@@ -7,8 +7,14 @@
 	# браузер бил ~250 условных запросов (304), и каждый стоил round-trip.
 	# Имена файлов Тильды содержат хэш содержимого, наши сборки перевыкладываются
 	# целиком, поэтому иммутабельный годовой кэш безопасен.
-	@static path /t/images/* /t/css/* /t/js/* /t/fonts/* /widget/* /_astro/* /images/* /css/* /js/*
+	@static path /t/images/* /t/css/* /t/js/* /t/fonts/* /_astro/* /images/* /css/* /js/*
 	header @static Cache-Control "public, max-age=31536000, immutable"
+
+	# Наши виджеты (/widget/*) меняются часто, а имена файлов стабильные —
+	# годовой кэш прятал обновления от вернувшихся посетителей. no-cache =
+	# браузер ревалидирует (304 дёшев), свежий код доезжает сразу.
+	@widget path /widget/*
+	header @widget Cache-Control "no-cache"
 
 	# HTML не кэшируем: он меняется при каждой правке блока, а адреса постоянные.
 	@html path / *.html */
