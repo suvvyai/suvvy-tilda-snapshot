@@ -49,6 +49,12 @@
   ];
 
   var PLAY_SVG = '<svg viewBox="0 0 24 24" fill="#11253E" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>';
+  var CHEVRON_L = '<svg viewBox="0 0 24 24" fill="none" stroke="#11253E" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.5 5.5 8 12l6.5 6.5"/></svg>';
+  var CHEVRON_R = '<svg viewBox="0 0 24 24" fill="none" stroke="#11253E" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.5 5.5 16 12l-6.5 6.5"/></svg>';
+
+  // Автосмена: свой тизер доигрывает до конца (loop не ставим), длинный
+  // mp4-предпросмотр обрезаем по таймеру — и переключаемся на следующее видео.
+  var PREVIEW_CAP_S = 18;
 
   function embedUrl(v) {
     var u = 'https://vkvideo.ru/video_ext.php?oid=' + v.oid + '&id=' + v.id + '&hd=2&autoplay=1';
@@ -82,7 +88,7 @@
     // от виджета) или сам mp4 (v.preview); без него — градиент.
     var pv = v.teaser ? BASE + v.teaser : (v.preview && v.mp4 ? v.mp4 : null);
     var back = pv
-      ? '<video class="svid__previewvid" src="' + pv + '" muted loop autoplay playsinline></video>' +
+      ? '<video class="svid__previewvid" src="' + pv + '" muted autoplay playsinline></video>' +
         '<span class="svid__shade" aria-hidden="true"></span>'
       : '<span class="svid__bg" aria-hidden="true"></span>';
     return back +
@@ -105,12 +111,20 @@
           '</button>';
         }).join('') + '</div>'
       : '';
+    // Стрелки — сиблинги сцены (внутри их снесло бы заменой innerHTML при переключении).
+    var nav = VIDEOS.length > 1
+      ? '<button type="button" class="svid__nav svid__nav--prev" data-nav="-1" aria-label="Предыдущее видео">' + CHEVRON_L + '</button>' +
+        '<button type="button" class="svid__nav svid__nav--next" data-nav="1" aria-label="Следующее видео">' + CHEVRON_R + '</button>'
+      : '';
     s.innerHTML =
       '<div class="svid__inner">' +
         '<h2 class="svid__title">Савви на конференциях</h2>' +
         '<div class="svid__panel">' +
-          '<div class="svid__stage" role="button" tabindex="0" aria-label="Смотреть видео">' +
-            stageHtml(VIDEOS[0]) +
+          '<div class="svid__stagewrap">' +
+            '<div class="svid__stage" role="button" tabindex="0" aria-label="Смотреть видео">' +
+              stageHtml(VIDEOS[0]) +
+            '</div>' +
+            nav +
           '</div>' +
           tabs +
         '</div>' +
@@ -121,7 +135,7 @@
   // Autoplay беззвучного предпросмотра: браузер не всегда стартует ролик вне
   // вьюпорта — запускаем явно при появлении сцены на экране (и ставим на паузу,
   // когда она уходит с экрана, чтобы не крутить впустую).
-  function armPreview(stage) {
+  function armPreview(stage, onDone) {
     var v = stage.querySelector('.svid__previewvid');
     if (!v) return;
     var tryPlay = function () { v.play().catch(function () {}); };
@@ -135,6 +149,19 @@
         });
       }, { threshold: 0.15 }).observe(stage);
     }
+    // Автосмена активного видео по истечении тизера. Пока сцена не на экране,
+    // ролик стоит на паузе — timeupdate/ended не приходят, карусель не крутится.
+    if (typeof onDone !== 'function') return;
+    var done = false;
+    var fire = function () {
+      if (done || !document.contains(v)) return;
+      done = true;
+      onDone();
+    };
+    v.addEventListener('ended', fire);
+    v.addEventListener('timeupdate', function () {
+      if (v.currentTime >= PREVIEW_CAP_S) fire();
+    });
   }
 
   function playCurrent(stage) {
@@ -149,7 +176,25 @@
 
   function wire(s) {
     var stage = s.querySelector('.svid__stage');
-    armPreview(stage);
+
+    function setActive(i) {
+      current = ((i % VIDEOS.length) + VIDEOS.length) % VIDEOS.length;
+      Array.prototype.forEach.call(s.querySelectorAll('.svid__tab'), function (t) {
+        t.classList.toggle('is-active', +t.getAttribute('data-tab') === current);
+      });
+      stage.classList.remove('svid__stage--playing');
+      stage.innerHTML = stageHtml(VIDEOS[current]);
+      armPreview(stage, advance);
+    }
+
+    // Автосмена: тизер доиграл → следующее видео. Если посетитель уже смотрит
+    // полный ролик, превью в сцене нет и advance не вызовется.
+    function advance() {
+      if (stage.classList.contains('svid__stage--playing')) return;
+      setActive(current + 1);
+    }
+
+    armPreview(stage, advance);
     stage.addEventListener('click', function () {
       if (!stage.classList.contains('svid__stage--playing')) playCurrent(stage);
     });
@@ -161,13 +206,12 @@
     });
     Array.prototype.forEach.call(s.querySelectorAll('.svid__tab'), function (tab) {
       tab.addEventListener('click', function () {
-        current = +tab.getAttribute('data-tab');
-        Array.prototype.forEach.call(s.querySelectorAll('.svid__tab'), function (t) {
-          t.classList.toggle('is-active', t === tab);
-        });
-        stage.classList.remove('svid__stage--playing');
-        stage.innerHTML = stageHtml(VIDEOS[current]);
-        armPreview(stage);
+        setActive(+tab.getAttribute('data-tab'));
+      });
+    });
+    Array.prototype.forEach.call(s.querySelectorAll('.svid__nav'), function (btn) {
+      btn.addEventListener('click', function () {
+        setActive(current + (+btn.getAttribute('data-nav')));
       });
     });
   }

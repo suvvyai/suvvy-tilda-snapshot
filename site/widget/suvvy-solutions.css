@@ -303,15 +303,19 @@
   background: #fff;
   padding-block: var(--section-py);
 }
+/* Заголовок — как у тильда-блоков («Ключевые функции Савви»). */
 #shw-solutions .solutions__title {
-  font-family: "Onest", var(--font-sans);
-  font-size: clamp(32px, 3.4vw, 46px);
-  font-weight: 700;
-  line-height: 1.1;
-  letter-spacing: -0.02em;
-  color: var(--suvvy-ink-900);
+  font-family: 'Onest', Arial, sans-serif;
+  font-size: 38px;
+  font-weight: 500;
+  line-height: 1.55;
+  letter-spacing: 0;
+  color: #1a375c;
   margin: 16px 0 44px;
   text-wrap: balance;
+}
+@media (max-width: 479px) {
+  #shw-solutions .solutions__title { font-size: 24px; }
 }
 #shw-solutions .solutions__grid {
   display: grid;

@@ -29,10 +29,14 @@
 
 /* заголовок и навигация */
 #shw-cases .shwc__top { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 26px; }
+/* Заголовок — как у тильда-блоков («Ключевые функции Савви»). */
 #shw-cases .shwc__title {
   font-family: 'Onest', Arial, sans-serif; font-weight: 500;
-  font-size: clamp(28px, 3vw, 34px); letter-spacing: -.02em; line-height: 1.2;
-  color: var(--ink-900); margin: 0;
+  font-size: 38px; letter-spacing: 0; line-height: 1.55;
+  color: #1a375c; margin: 0;
+}
+@media (max-width: 479px) {
+  #shw-cases .shwc__title { font-size: 24px; }
 }
 #shw-cases .shwc__nav { display: flex; align-items: center; gap: 10px; flex: 0 0 auto; }
 #shw-cases .shwc__count { font-size: 13px; color: var(--ink-700); font-variant-numeric: tabular-nums; }

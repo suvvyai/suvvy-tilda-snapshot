@@ -14,13 +14,18 @@
   margin-inline: auto;
   padding-inline: 20px;
 }
-/* Заголовок — как у остальных секций: слева, вес 500. */
+/* Заголовок — как у тильда-блоков («Ключевые функции Савви»). */
 #shw-videos .svid__title {
-  font-size: clamp(28px, 3vw, 34px);
+  font-family: 'Onest', Arial, sans-serif;
+  font-size: 38px;
   font-weight: 500;
-  letter-spacing: -0.02em;
-  color: #11253E;
+  line-height: 1.55;
+  letter-spacing: 0;
+  color: #1a375c;
   margin: 0 0 28px;
+}
+@media (max-width: 479px) {
+  #shw-videos .svid__title { font-size: 24px; }
 }
 
 #shw-videos .svid__panel {
@@ -118,6 +123,32 @@
 #shw-videos .svid__stage:hover .svid__play { transform: scale(1.08); }
 #shw-videos .svid__play svg { width: 18px; height: 18px; margin-left: 2px; }
 
+/* Стрелки переключения по краям видео. Живут в .svid__stagewrap, а не в сцене:
+   переключение заменяет сцене innerHTML, и вложенные кнопки бы снесло. */
+#shw-videos .svid__stagewrap { position: relative; }
+#shw-videos .svid__nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, .92);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 6px 16px -6px rgba(0, 0, 0, .35);
+  transition: transform .18s cubic-bezier(.2, 0, 0, 1), background .18s;
+}
+#shw-videos .svid__nav:hover { transform: translateY(-50%) scale(1.08); background: #fff; }
+#shw-videos .svid__nav--prev { left: 16px; }
+#shw-videos .svid__nav--next { right: 16px; }
+#shw-videos .svid__nav svg { width: 18px; height: 18px; }
+
 /* Вкладки-переключатели (появляются, когда видео больше одного). */
 #shw-videos .svid__tabs {
   display: grid;
@@ -163,4 +194,8 @@
   #shw-videos .svid__stagemeta { left: 16px; bottom: 14px; max-width: 82%; }
   #shw-videos .svid__stagetitle { font-size: 16px; }
   #shw-videos .svid__play { width: 44px; height: 44px; }
+  #shw-videos .svid__nav { width: 36px; height: 36px; }
+  #shw-videos .svid__nav--prev { left: 10px; }
+  #shw-videos .svid__nav--next { right: 10px; }
+  #shw-videos .svid__nav svg { width: 15px; height: 15px; }
 }
