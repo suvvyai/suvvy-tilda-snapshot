@@ -25,6 +25,9 @@
       title: 'Выступление Антона Бесщетникова',
       meta: 'Антон Бесщетников · фаундер Савви',
       oid: '-230256025', id: '456239057', list: 'f18a87775e6eafe264',
+      // Тизер: 4 фрагмента выступления по 4с (ffmpeg из ролика ВК), 335 КБ,
+      // без звука — крутится в сцене; клик открывает полный ВК-плеер.
+      teaser: 'videos/amoconf-teaser.mp4',
     },
     {
       conf: 'Moscow Startup Summit',
@@ -66,9 +69,11 @@
   var current = 0;
 
   function stageHtml(v) {
-    // mp4 с preview — живой беззвучный ролик вместо градиента; клик включает звук.
-    var back = v.mp4 && v.preview
-      ? '<video class="svid__previewvid" src="' + v.mp4 + '" muted loop autoplay playsinline></video>' +
+    // Живой беззвучный предпросмотр: свой тизер (v.teaser, относительный путь
+    // от виджета) или сам mp4 (v.preview); без него — градиент.
+    var pv = v.teaser ? BASE + v.teaser : (v.preview && v.mp4 ? v.mp4 : null);
+    var back = pv
+      ? '<video class="svid__previewvid" src="' + pv + '" muted loop autoplay playsinline></video>' +
         '<span class="svid__shade" aria-hidden="true"></span>'
       : '<span class="svid__bg" aria-hidden="true"></span>';
     return back +
@@ -104,6 +109,25 @@
     return s;
   }
 
+  // Autoplay беззвучного предпросмотра: браузер не всегда стартует ролик вне
+  // вьюпорта — запускаем явно при появлении сцены на экране (и ставим на паузу,
+  // когда она уходит с экрана, чтобы не крутить впустую).
+  function armPreview(stage) {
+    var v = stage.querySelector('.svid__previewvid');
+    if (!v) return;
+    var tryPlay = function () { v.play().catch(function () {}); };
+    tryPlay();
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (!document.contains(v)) return;
+          if (e.isIntersecting) tryPlay();
+          else v.pause();
+        });
+      }, { threshold: 0.15 }).observe(stage);
+    }
+  }
+
   function playCurrent(stage) {
     var v = VIDEOS[current];
     stage.classList.add('svid__stage--playing');
@@ -116,6 +140,7 @@
 
   function wire(s) {
     var stage = s.querySelector('.svid__stage');
+    armPreview(stage);
     stage.addEventListener('click', function () {
       if (!stage.classList.contains('svid__stage--playing')) playCurrent(stage);
     });
@@ -133,6 +158,7 @@
         });
         stage.classList.remove('svid__stage--playing');
         stage.innerHTML = stageHtml(VIDEOS[current]);
+        armPreview(stage);
       });
     });
   }
