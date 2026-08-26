@@ -80,8 +80,8 @@
     s.id = 'shw-clients';
     s.innerHTML =
       '<div class="sclients__inner">' +
-        '<h2 class="sclients__title">Нам доверяют 2000+ бизнесов</h2>' +
         '<div class="sclients__slots">' + slots + '</div>' +
+        '<h2 class="sclients__title">Нам доверяют 2000+ бизнесов</h2>' +
       '</div>';
     return s;
   }

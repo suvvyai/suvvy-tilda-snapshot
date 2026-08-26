@@ -14,19 +14,20 @@
   padding-inline: 20px;
 }
 /* Заголовок — в общем стиле сайта: слева, как у «Результатов клиентов Савви». */
-/* Заголовок — как у тильда-блоков («Ключевые функции Савви»):
-   Onest 500, 38px (24px на мобильном), #1a375c, line-height 1.55. */
+/* Заголовок — подпись ПОД лентой лого (решение фаундера 26.08): по центру,
+   мельче секционного эталона. */
 #shw-clients .sclients__title {
   font-family: 'Onest', Arial, sans-serif;
-  font-size: 38px;
+  font-size: 20px;
   font-weight: 500;
-  line-height: 1.55;
+  line-height: 1.4;
   letter-spacing: 0;
-  color: #1a375c;
-  margin: 0 0 28px;
+  color: #5E748D;
+  text-align: center;
+  margin: 28px 0 0;
 }
 @media (max-width: 479px) {
-  #shw-clients .sclients__title { font-size: 24px; }
+  #shw-clients .sclients__title { font-size: 16px; margin-top: 20px; }
 }
 
 /* Ровно 5 в ряд: колонки тянутся, ширину слота не хардкодим (на фиксированной
