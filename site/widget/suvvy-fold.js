@@ -17,6 +17,10 @@
 
   var BANNER = 'rec839898293';
   var LEGAL = 'rec1635107201';
+  // Отзыв Николая Кудрина: заголовок блока наезжает на карточку цитаты
+  // (вёрстка выгрузки). СКРЫТ по решению фаундера 26.08 «пока» — не удалять,
+  // вернуть после починки блока.
+  var QUOTE_HIDDEN = 'rec853595203';
   var PULL_UP_PX = 130;   // 197px зазора → ~67px
   var MIN_DESKTOP = 960;
 
@@ -32,10 +36,14 @@
     var s = document.createElement('style');
     s.id = 'shw-fold-css';
     s.textContent =
+      // ⚠️ elem-id в выгрузке НЕ уникальны: tn_text_1733849134864 есть и в
+      // rec838879993 («Разработка чат-ботов»), и в rec853595203 (отзыв
+      // Кудрина) — без якоря на rec правило ломало второй блок.
       '@media (min-width: 640px) {' +
-      ' [field="tn_text_1733753073710"] { font-size: 38px !important; }' +
-      ' [field="tn_text_1733849134864"] { font-size: 38px !important; line-height: 1.2 !important; }' +
-      '}';
+      ' #rec837715983 [field="tn_text_1733753073710"] { font-size: 38px !important; }' +
+      ' #rec838879993 [field="tn_text_1733849134864"] { font-size: 38px !important; line-height: 1.2 !important; }' +
+      '}' +
+      '#' + QUOTE_HIDDEN + ' { display: none !important; }';
     document.head.appendChild(s);
   }
   injectHeadingCss();
@@ -43,8 +51,12 @@
   function fixGap() {
     var banner = document.getElementById(BANNER);
     if (!banner) return;
+    // Подтяжка компенсировала пустоту ПОД отзывом Кудрина; пока тот скрыт,
+    // тянуть не к чему — иначе баннер наедет на блок выше.
+    var q = document.getElementById(QUOTE_HIDDEN);
+    var quoteVisible = q && q.offsetParent !== null;
     banner.style.marginTop =
-      window.innerWidth >= MIN_DESKTOP ? (-PULL_UP_PX + 'px') : '';
+      quoteVisible && window.innerWidth >= MIN_DESKTOP ? (-PULL_UP_PX + 'px') : '';
   }
 
   function foldLegal() {
