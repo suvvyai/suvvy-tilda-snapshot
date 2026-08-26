@@ -20,6 +20,26 @@
   var PULL_UP_PX = 130;   // 197px зазора → ~67px
   var MIN_DESKTOP = 960;
 
+  /* 3. Выравнивание секционных заголовков под эталон 38px («Ключевые функции
+   * Савви»): «Интеграция с CRM…» была 39px, «Разработка чат-ботов для
+   * бизнеса» — 24px (у неё line-height 1.2 и подъём: при 1.55 наезжала бы
+   * на цитату в 25px ниже). Только ≥640px — мобильные размеры зеро-блоков
+   * не трогаем. «Готовые решения под ваши задачи» (28px) НЕ трогаем:
+   * двухколоночный хедер, 38px в две строки давит подзаголовок и колонку.
+   */
+  function injectHeadingCss() {
+    if (document.getElementById('shw-fold-css')) return;
+    var s = document.createElement('style');
+    s.id = 'shw-fold-css';
+    s.textContent =
+      '@media (min-width: 640px) {' +
+      ' [field="tn_text_1733753073710"] { font-size: 38px !important; }' +
+      ' [field="tn_text_1733849134864"] { font-size: 38px !important; line-height: 1.2 !important; }' +
+      '}';
+    document.head.appendChild(s);
+  }
+  injectHeadingCss();
+
   function fixGap() {
     var banner = document.getElementById(BANNER);
     if (!banner) return;
@@ -36,6 +56,9 @@
     var parts = text.innerHTML.split(/(?:\s*<br[^>]*>\s*){2,}/);
     if (parts.length < 2) return;
     rec.dataset.shwFolded = 'y';
+    // У рекорда паддинг 75px сверху и снизу; после сворачивания текста нижние
+    // 75px + воздух футера давали дыру — поджимаем только низ.
+    rec.style.paddingBottom = '20px';
 
     text.innerHTML =
       parts[0] +
