@@ -27,6 +27,12 @@
     var full = el.getAttribute('data-original');
     if (!full) return;
     if (el.tagName === 'IMG') {
+      // Мы сами решили, что пора грузить, — родной loading="lazy" снимаем.
+      // Иначе взаимоблокировка у hug-картинок: их бокс 0×N до загрузки,
+      // а нативная ленивость бокс нулевой площади не грузит никогда
+      // (ловилось на /en/: 8 SVG с высотой 0; src=data-original, так что
+      // одна установка src загрузку не перезапускала).
+      el.loading = 'eager';
       el.src = full;
     } else {
       el.style.backgroundImage = 'url(\'' + full + '\')';
