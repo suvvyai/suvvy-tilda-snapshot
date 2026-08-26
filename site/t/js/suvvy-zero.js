@@ -571,6 +571,15 @@
     var type = elem.getAttribute('data-elem-type');
     var fields = FIELDS[type];
     if (!fields) return; // галерей и тултипов в выгрузке нет
+    // Пререндер (build_pages.py: prerender_zero_forms) — разметка формы уже в
+    // HTML, движка tilda-zero-forms на странице нет. Ждать его через
+    // t_onFuncLoad нельзя: колбэк не выполнится никогда, и элемент останется
+    // без width/top/left. Поле inputs такому элементу тоже не нужно.
+    if (type === 'form' && elem.hasAttribute('data-suvvy-form')) {
+      elem.setAttribute('data-fields', fields.replace(',inputs', ''));
+      t396_elem__renderView(elem);
+      return;
+    }
     elem.setAttribute('data-fields', fields);
     if (type === 'form') {
       var inputs = t396_elem__getFormInputsValue(elem);
