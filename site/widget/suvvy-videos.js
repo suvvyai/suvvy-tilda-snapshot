@@ -3,15 +3,16 @@
  * Наш блок (в Тильде его нет). Дизайн — вариант D мокапа
  * mockups/video-section.html («прожектор с переключателем»): одна крупная
  * витрина с бейджем конференции, заголовком и спикером, вкладки-переключатели
- * снизу. Видео — ВК Видео: iframe video_ext.php создаётся только по клику
- * на сцену (до этого страница ничего с ВК не грузит).
+ * снизу. Видео — Рутуб: iframe плеера создаётся только по клику на сцену
+ * (до этого страница ничего с видеохостинга не грузит). Поддержан и ВК
+ * (oid/id/list), если ролик лежит там.
  *
  * Порядок на главной (решение фаундера): герой → «Нам доверяют» →
  * «Результаты клиентов» → ЭТОТ БЛОК → «Решения». Якорь — перед #shw-solutions.
  *
- * Добавить видео: дописать объект в VIDEOS (oid/id/list — из ссылки вида
- * vkvideo.ru/video{oid}_{id}?list={list}). Вкладки появляются автоматически,
- * когда видео больше одного.
+ * Добавить видео: дописать объект в VIDEOS — rutube: '<id>' из ссылки
+ * rutube.ru/video/<id>/, либо oid/id/list из vkvideo.ru/video{oid}_{id},
+ * либо прямой mp4. Вкладки появляются автоматически, когда видео больше одного.
  */
 (function () {
   'use strict';
@@ -33,10 +34,11 @@
       conf: 'АМОКОНФ 2026',
       title: 'Выступление Антона Бесщетникова на АМОКОНФ',
       meta: 'Антон Бесщетников · фаундер Савви',
-      oid: '-230256025', id: '456239057', list: 'f18a87775e6eafe264',
+      rutube: '578205f57cee2c5ac485dd345ea15e6e',
       // Тизер: 4 фрагмента выступления по 4с (ffmpeg из ролика ВК), 335 КБ,
       // без звука — крутится в сцене; клик открывает полный ВК-плеер.
       teaser: 'videos/amoconf-teaser.mp4',
+      logo: 'logos/amoconf.svg',
     },
     {
       conf: 'Moscow Startup Summit',
@@ -45,6 +47,15 @@
       // Прямой mp4 — крутится живым предпросмотром (без звука) прямо в сцене.
       mp4: 'https://c80ejklh5b.a.trbcdn.net/common/assets/startupsummit/awards_how_it_was_last_year.mp4',
       preview: true,
+      logo: 'logos/startup-summit.png',
+    },
+    {
+      conf: 'Питерский Промпт',
+      title: 'Выступление Антона Бесщетникова',
+      meta: 'Антон Бесщетников · фаундер Савви',
+      logo: 'logos/piterskiy-prompt.svg',
+      // TODO: ссылка на запись (vkvideo.ru/video{oid}_{id}?list={list}) —
+      // пока источника нет, сцена показывает градиент с бейджем и не кликается.
     },
   ];
 
@@ -57,9 +68,18 @@
   var PREVIEW_CAP_S = 18;
 
   function embedUrl(v) {
+    if (v.rutube) return 'https://rutube.ru/play/embed/' + v.rutube + '/?autoplay=1';
     var u = 'https://vkvideo.ru/video_ext.php?oid=' + v.oid + '&id=' + v.id + '&hd=2&autoplay=1';
     if (v.list) u += '&list=' + v.list;
     return u;
+  }
+
+  // Запасной ход: если плеер не поднялся (блокировщик, корпоративная сеть),
+  // даём прямую ссылку на ролик — она открывается отдельной вкладкой.
+  function watchUrl(v) {
+    if (v.rutube) return 'https://rutube.ru/video/' + v.rutube + '/';
+    if (v.oid && v.id) return 'https://vkvideo.ru/video' + v.oid + '_' + v.id;
+    return null;
   }
 
   function baseUrl() {
@@ -83,6 +103,17 @@
 
   var current = 0;
 
+  // Лого мероприятия в плашке. Файла может не быть (лого добавляются по мере
+  // получения) — тогда картинку прячем, вёрстка плашки не меняется.
+  function logoHtml(v) {
+    if (!v.logo) return '';
+    return '<img class="svid__tablogo" src="' + BASE + v.logo + '" alt="' + v.conf +
+      '" loading="lazy" onerror="this.remove()">';
+  }
+
+  // Есть ли что показывать по клику: свой ролик ВК или прямой mp4.
+  function hasSource(v) { return !!(v.mp4 || v.rutube || (v.oid && v.id)); }
+
   function stageHtml(v) {
     // Живой беззвучный предпросмотр: свой тизер (v.teaser, относительный путь
     // от виджета) или сам mp4 (v.preview); без него — градиент.
@@ -97,7 +128,7 @@
         '<h3 class="svid__stagetitle">' + v.title + '</h3>' +
         '<p class="svid__stagedesc">' + v.meta + '</p>' +
       '</div>' +
-      '<span class="svid__play">' + PLAY_SVG + '</span>';
+      (hasSource(v) ? '<span class="svid__play">' + PLAY_SVG + '</span>' : '');
   }
 
   function build() {
@@ -106,8 +137,10 @@
     var tabs = VIDEOS.length > 1
       ? '<div class="svid__tabs">' + VIDEOS.map(function (v, i) {
           return '<button type="button" class="svid__tab' + (i === 0 ? ' is-active' : '') + '" data-tab="' + i + '">' +
-            '<span class="svid__tabconf">' + v.conf + '</span>' +
-            '<span class="svid__tabtitle">' + v.title + '</span>' +
+            '<span class="svid__tabtext">' +
+              '<span class="svid__tabconf">' + v.conf + '</span>' +
+              '<span class="svid__tabtitle">' + v.title + '</span>' +
+            '</span>' + logoHtml(v) +
           '</button>';
         }).join('') + '</div>'
       : '';
@@ -135,9 +168,22 @@
   // Autoplay беззвучного предпросмотра: браузер не всегда стартует ролик вне
   // вьюпорта — запускаем явно при появлении сцены на экране (и ставим на паузу,
   // когда она уходит с экрана, чтобы не крутить впустую).
+  var stillTimer = null;
+
   function armPreview(stage, onDone) {
+    clearTimeout(stillTimer);
     var v = stage.querySelector('.svid__previewvid');
-    if (!v) return;
+    if (!v) {
+      // Пункт без ролика (запись ещё не выложена): держим статичную сцену
+      // столько же, сколько длится обрезанный предпросмотр, и идём дальше —
+      // иначе карусель на нём остановится.
+      if (typeof onDone === 'function') {
+        stillTimer = setTimeout(function () {
+          if (document.contains(stage)) onDone();
+        }, PREVIEW_CAP_S * 1000 / 2);
+      }
+      return;
+    }
     var tryPlay = function () { v.play().catch(function () {}); };
     tryPlay();
     if ('IntersectionObserver' in window) {
@@ -171,6 +217,17 @@
       stage.innerHTML = '<video src="' + v.mp4 + '" controls autoplay playsinline></video>';
     } else {
       stage.innerHTML = '<iframe src="' + embedUrl(v) + '" allow="autoplay; encrypted-media; fullscreen; picture-in-picture" allowfullscreen frameborder="0"></iframe>';
+      // Плеер могут срезать блокировщик или сеть — тогда через 4с показываем
+      // ссылку «смотреть на площадке», чтобы клик не заканчивался ничем.
+      var url = watchUrl(v);
+      if (url) setTimeout(function () {
+        var fr = stage.querySelector('iframe');
+        if (!fr || !document.contains(fr)) return;
+        try { if (fr.contentWindow && fr.contentWindow.length >= 0) {} } catch (e) {}
+        if (fr.clientHeight > 40) return;
+        stage.insertAdjacentHTML('beforeend',
+          '<a class="svid__fallback" href="' + url + '" target="_blank" rel="noopener">Смотреть на площадке</a>');
+      }, 4000);
     }
   }
 
@@ -196,10 +253,11 @@
 
     armPreview(stage, advance);
     stage.addEventListener('click', function () {
+      if (!hasSource(VIDEOS[current])) return;
       if (!stage.classList.contains('svid__stage--playing')) playCurrent(stage);
     });
     stage.addEventListener('keydown', function (e) {
-      if ((e.key === 'Enter' || e.key === ' ') && !stage.classList.contains('svid__stage--playing')) {
+      if ((e.key === 'Enter' || e.key === ' ') && hasSource(VIDEOS[current]) && !stage.classList.contains('svid__stage--playing')) {
         e.preventDefault();
         playCurrent(stage);
       }

@@ -156,6 +156,8 @@
   grid-auto-columns: 1fr;
   border-top: 1px solid #E1E6EC;
 }
+/* Плашка: текст слева, лого мероприятия справа. Лого приглушено, у активной
+   вкладки — в полную силу, как и её бейдж. */
 #shw-videos .svid__tab {
   padding: 16px 18px;
   text-align: left;
@@ -165,9 +167,30 @@
   font: inherit;
   cursor: pointer;
   display: flex;
+  align-items: center;
+  gap: 14px;
+}
+#shw-videos .svid__tabtext {
+  display: flex;
   flex-direction: column;
   gap: 4px;
+  min-width: 0;
+  flex: 1 1 auto;
 }
+#shw-videos .svid__tablogo {
+  flex: 0 0 auto;
+  height: 22px;
+  width: auto;
+  max-width: 104px;
+  object-fit: contain;
+  /* Монохром: лого мероприятий приходят в разных цветах и версиях (светлые
+     для тёмного фона в том числе) — brightness(0) кладёт любой в один чёрный,
+     дальше отличаем активную вкладку прозрачностью. */
+  filter: brightness(0);
+  opacity: .34;
+  transition: opacity 180ms;
+}
+#shw-videos .svid__tab.is-active .svid__tablogo { opacity: .78; }
 #shw-videos .svid__tab:last-child { border-right: 0; }
 #shw-videos .svid__tab.is-active { background: #F0F4FA; }
 #shw-videos .svid__tabconf {
@@ -190,6 +213,7 @@
   #shw-videos .svid__stage { aspect-ratio: 16 / 9; }
   #shw-videos .svid__tabs { grid-auto-flow: row; grid-auto-columns: unset; }
   #shw-videos .svid__tab { border-right: 0; border-bottom: 1px solid #E1E6EC; }
+  #shw-videos .svid__tablogo { height: 18px; max-width: 84px; }
   #shw-videos .svid__tab:last-child { border-bottom: 0; }
   #shw-videos .svid__stagemeta { left: 16px; bottom: 14px; max-width: 82%; }
   #shw-videos .svid__stagetitle { font-size: 16px; }
@@ -198,4 +222,20 @@
   #shw-videos .svid__nav--prev { left: 10px; }
   #shw-videos .svid__nav--next { right: 10px; }
   #shw-videos .svid__nav svg { width: 15px; height: 15px; }
+}
+
+/* Ссылка-выручалка, если плеер не поднялся (блокировщик/сеть). */
+#shw-videos .svid__fallback {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background: #fff;
+  color: #11253E;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  padding: 12px 20px;
+  border-radius: 90px;
+  box-shadow: 0 10px 28px -12px rgba(17, 37, 62, .5);
 }
