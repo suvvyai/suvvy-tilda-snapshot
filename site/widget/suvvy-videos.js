@@ -55,6 +55,7 @@
       meta: 'Антон Бесщетников · фаундер Савви',
       logo: 'logos/piterskiy-prompt.svg',
       rutube: 'a063e23609e2f2eb0e4a1c33582bbaa3',
+      teaser: 'videos/piter-teaser.mp4',
     },
   ];
 
