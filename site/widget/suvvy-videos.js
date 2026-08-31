@@ -155,8 +155,8 @@
       : '';
     s.innerHTML =
       '<div class="svid__inner">' +
-        '<h2 class="svid__title">Нас зовут туда, где говорят про ИИ</h2>' +
-        '<p class="svid__sub">Савви выступает на главных сценах — от АМОКОНФ до Питерского Промпта</p>' +
+        '<h2 class="svid__title">Савви всегда там, где говорят про ИИ</h2>' +
+        '<p class="svid__sub">Выступаем на главных сценах — от АМОКОНФ до Питерского Промпта</p>' +
         '<div class="svid__panel">' +
           '<div class="svid__stagewrap">' +
             '<div class="svid__stage" role="button" tabindex="0" aria-label="Смотреть видео">' +
