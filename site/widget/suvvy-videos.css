@@ -22,10 +22,18 @@
   line-height: 1.55;
   letter-spacing: 0;
   color: #1a375c;
+  margin: 0 0 10px;
+}
+#shw-videos .svid__sub {
+  font-size: 17px;
+  line-height: 1.5;
+  color: #5A6B80;
   margin: 0 0 28px;
+  max-width: 640px;
 }
 @media (max-width: 479px) {
   #shw-videos .svid__title { font-size: 24px; }
+  #shw-videos .svid__sub { font-size: 15px; }
 }
 
 #shw-videos .svid__panel {
@@ -177,11 +185,21 @@
   min-width: 0;
   flex: 1 1 auto;
 }
+/* Слот под лого одной ширины во всех плашках: колонка текста тогда тоже
+   одинаковая и заголовки переносятся одинаково, чем бы ни было лого. */
+#shw-videos .svid__tablogobox {
+  flex: 0 0 96px;
+  width: 96px;
+  height: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
 #shw-videos .svid__tablogo {
-  flex: 0 0 auto;
-  height: 22px;
+  max-height: 26px;
+  max-width: 96px;
   width: auto;
-  max-width: 104px;
+  height: auto;
   object-fit: contain;
   /* Монохром: лого мероприятий приходят в разных цветах и версиях (светлые
      для тёмного фона в том числе) — brightness(0) кладёт любой в один чёрный,
@@ -213,7 +231,8 @@
   #shw-videos .svid__stage { aspect-ratio: 16 / 9; }
   #shw-videos .svid__tabs { grid-auto-flow: row; grid-auto-columns: unset; }
   #shw-videos .svid__tab { border-right: 0; border-bottom: 1px solid #E1E6EC; }
-  #shw-videos .svid__tablogo { height: 18px; max-width: 84px; }
+  #shw-videos .svid__tablogobox { flex: 0 0 84px; width: 84px; height: 22px; }
+  #shw-videos .svid__tablogo { max-height: 22px; max-width: 84px; }
   #shw-videos .svid__tab:last-child { border-bottom: 0; }
   #shw-videos .svid__stagemeta { left: 16px; bottom: 14px; max-width: 82%; }
   #shw-videos .svid__stagetitle { font-size: 16px; }

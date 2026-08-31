@@ -32,7 +32,7 @@
   var VIDEOS = [
     {
       conf: 'АМОКОНФ 2026',
-      title: 'Выступление Антона Бесщетникова на АМОКОНФ',
+      title: 'Выступление Антона Бесщетникова',
       meta: 'Антон Бесщетников · фаундер Савви',
       rutube: '578205f57cee2c5ac485dd345ea15e6e',
       // Тизер: 4 фрагмента выступления по 4с (ffmpeg из ролика ВК), 335 КБ,
@@ -51,9 +51,9 @@
     },
     {
       conf: 'Питерский Промпт',
-      title: 'Выступление Антона Бесщетникова',
+      title: 'Доклад «Нейросети для бизнеса»',
       meta: 'Антон Бесщетников · фаундер Савви',
-      logo: 'logos/piterskiy-prompt.svg',
+      logo: 'logos/piterskiy-prompt.png',
       rutube: 'a063e23609e2f2eb0e4a1c33582bbaa3',
       teaser: 'videos/piter-teaser.mp4',
     },
@@ -106,9 +106,13 @@
   // Лого мероприятия в плашке. Файла может не быть (лого добавляются по мере
   // получения) — тогда картинку прячем, вёрстка плашки не меняется.
   function logoHtml(v) {
-    if (!v.logo) return '';
-    return '<img class="svid__tablogo" src="' + BASE + v.logo + '" alt="' + v.conf +
-      '" loading="lazy" onerror="this.remove()">';
+    var img = v.logo
+      ? '<img class="svid__tablogo" src="' + BASE + v.logo + '" alt="' + v.conf +
+        '" loading="lazy" onerror="this.remove()">'
+      : '';
+    // Слот держим всегда: колонка текста тогда одинакова во всех плашках и
+    // заголовки переносятся одинаково — даже если лого ещё нет.
+    return '<span class="svid__tablogobox">' + img + '</span>';
   }
 
   // Есть ли что показывать по клику: свой ролик ВК или прямой mp4.
@@ -151,7 +155,8 @@
       : '';
     s.innerHTML =
       '<div class="svid__inner">' +
-        '<h2 class="svid__title">Савви на конференциях</h2>' +
+        '<h2 class="svid__title">Нас зовут туда, где говорят про ИИ</h2>' +
+        '<p class="svid__sub">Савви выступает на главных сценах — от АМОКОНФ до Питерского Промпта</p>' +
         '<div class="svid__panel">' +
           '<div class="svid__stagewrap">' +
             '<div class="svid__stage" role="button" tabindex="0" aria-label="Смотреть видео">' +
