@@ -32,8 +32,10 @@
   var AFTER_CASES = 'shw-cases';
   var AFTER_REC = 'rec841335670';
 
-  var GREETING =
-    'Здравствуйте! Меня зовут Савви. Рад слышать вас. Я помогу ответить на ваши вопросы.';
+  // Настоящая запись голоса Савви (не синтез браузера): mp3 моно 64 кбит/с.
+  // preload='none' — 570 КБ не тянем, пока не нажали «play».
+  var VOICE_SRC = '/widget/audio/suvvy-voice.mp3';
+  var VOICE_LEN = '00:01:13';
 
   var CHAT = [
     { who: 'client', text: 'Здравствуйте, подскажите, сколько стоит доставка?' },
@@ -139,7 +141,7 @@
                       '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4.5v15l13-7.5z"/></svg>' +
                     '</button>' +
                     '<span class="audioplayer__wave" data-wave aria-hidden="true">' + waveHtml() + '</span>' +
-                    '<span class="audioplayer__time">00:00:09</span>' +
+                    '<span class="audioplayer__time" data-time>' + VOICE_LEN + '</span>' +
                   '</div>' +
                 '</div></div>' +
               '</div>' +
@@ -154,40 +156,52 @@
   var ICON_STOP = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">' +
     '<rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg>';
 
+  function fmt(sec) {
+    sec = Math.max(0, Math.round(sec || 0));
+    var m = Math.floor(sec / 60), r = sec % 60;
+    return '00:' + (m < 10 ? '0' : '') + m + ':' + (r < 10 ? '0' : '') + r;
+  }
+
   function wire(s) {
     var btn = s.querySelector('[data-play]');
     var wave = s.querySelector('[data-wave]');
+    var time = s.querySelector('[data-time]');
     if (!btn) return;
-    var playing = false;
+    var audio = null;
 
-    function stop() {
-      playing = false;
+    function reset() {
       btn.innerHTML = ICON_PLAY;
       btn.setAttribute('aria-label', 'Прослушать');
       wave.classList.remove('is-playing');
-      if (window.speechSynthesis) window.speechSynthesis.cancel();
+      if (time) time.textContent = audio && audio.duration ? fmt(audio.duration) : VOICE_LEN;
     }
 
     btn.addEventListener('click', function () {
-      if (playing) { stop(); return; }
-      var synth = window.speechSynthesis;
-      if (!synth) return;
-      synth.cancel();
-      var u = new SpeechSynthesisUtterance(GREETING);
-      u.lang = 'ru-RU';
-      var ru = (synth.getVoices() || []).filter(function (v) { return /ru/i.test(v.lang); })[0];
-      if (ru) u.voice = ru;
-      u.onend = stop;
-      u.onerror = stop;
-      playing = true;
+      if (!audio) {
+        audio = new Audio(VOICE_SRC);
+        audio.preload = 'none';
+        audio.addEventListener('loadedmetadata', function () {
+          if (time && audio.paused) time.textContent = fmt(audio.duration);
+        });
+        audio.addEventListener('timeupdate', function () {
+          if (time && !audio.paused) time.textContent = fmt(audio.currentTime);
+        });
+        audio.addEventListener('ended', reset);
+        audio.addEventListener('pause', reset);
+        // Файл не доехал (сеть/блокировщик) — возвращаем кнопку в исходное,
+        // чтобы нажатие не заканчивалось молчанием без объяснений.
+        audio.addEventListener('error', reset);
+      }
+      if (!audio.paused) { audio.pause(); audio.currentTime = 0; return; }
+      var pr = audio.play();
+      if (pr && pr.catch) pr.catch(reset);
       btn.innerHTML = ICON_STOP;
       btn.setAttribute('aria-label', 'Остановить');
       wave.classList.add('is-playing');
-      synth.speak(u);
     });
 
-    // Уходим со страницы (или Тильда пересобирает body) — синтез не должен продолжать.
-    window.addEventListener('pagehide', stop);
+    // Уходим со страницы (или Тильда пересобирает body) — звук не должен идти дальше.
+    window.addEventListener('pagehide', function () { if (audio) { audio.pause(); audio.currentTime = 0; } });
   }
 
   function injectCss() {
