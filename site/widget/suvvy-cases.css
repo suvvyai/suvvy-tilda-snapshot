@@ -164,13 +164,13 @@
 /* 5. деньги; расчёт — поповер поверх карточки, чтобы лента не растягивалась */
 #shw-cases .shwc__money {
   margin: 14px; border-radius: 16px; padding: 18px 20px 16px; position: relative; color: #fff;
-  background: linear-gradient(120deg, #11253E 0%, #221A5B 60%, #3E1470 100%);
+  background: linear-gradient(120deg, #0A2A20 0%, #0C5A3F 58%, #0E9F6E 100%);
 }
 #shw-cases .shwc__tg { position: absolute; opacity: 0; pointer-events: none; }
-#shw-cases .shwc__mcap { font-size: 9.5px; font-weight: 700; letter-spacing: .13em; text-transform: uppercase; color: #A9B7CC; }
+#shw-cases .shwc__mcap { font-size: 9.5px; font-weight: 700; letter-spacing: .13em; text-transform: uppercase; color: #A6CDBC; }
 #shw-cases .shwc__mrow { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-top: 10px; }
 #shw-cases .shwc__num { font-weight: 800; font-size: 28px; letter-spacing: -.03em; line-height: 1.05; white-space: nowrap; }
-#shw-cases .shwc__num u { text-decoration: none; color: #C4A9FF; }
+#shw-cases .shwc__num u { text-decoration: none; color: #8FE3C2; }
 #shw-cases .shwc__btn {
   flex: 0 0 auto; cursor: pointer; font-size: 11.5px; font-weight: 600; color: #fff;
   background: rgba(255, 255, 255, .12); border: 1px solid rgba(255, 255, 255, .24);

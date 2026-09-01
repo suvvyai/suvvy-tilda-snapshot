@@ -49,9 +49,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  cursor: pointer;
 }
-#shw-videos .svid__stage--playing { cursor: default; }
 #shw-videos .svid__stage iframe,
 #shw-videos .svid__stage > video {
   position: absolute;
@@ -115,21 +113,6 @@
   margin: 0;
   line-height: 1.5;
 }
-#shw-videos .svid__play {
-  position: relative;
-  z-index: 1;
-  width: 56px;
-  height: 56px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, .94);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 8px 20px -6px rgba(0, 0, 0, .35);
-  transition: transform .18s cubic-bezier(.2, 0, 0, 1);
-}
-#shw-videos .svid__stage:hover .svid__play { transform: scale(1.08); }
-#shw-videos .svid__play svg { width: 18px; height: 18px; margin-left: 2px; }
 
 /* Стрелки переключения по краям видео. Живут в .svid__stagewrap, а не в сцене:
    переключение заменяет сцене innerHTML, и вложенные кнопки бы снесло. */
@@ -236,25 +219,9 @@
   #shw-videos .svid__tab:last-child { border-bottom: 0; }
   #shw-videos .svid__stagemeta { left: 16px; bottom: 14px; max-width: 82%; }
   #shw-videos .svid__stagetitle { font-size: 16px; }
-  #shw-videos .svid__play { width: 44px; height: 44px; }
   #shw-videos .svid__nav { width: 36px; height: 36px; }
   #shw-videos .svid__nav--prev { left: 10px; }
   #shw-videos .svid__nav--next { right: 10px; }
   #shw-videos .svid__nav svg { width: 15px; height: 15px; }
 }
 
-/* Ссылка-выручалка, если плеер не поднялся (блокировщик/сеть). */
-#shw-videos .svid__fallback {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  background: #fff;
-  color: #11253E;
-  font-size: 14px;
-  font-weight: 600;
-  text-decoration: none;
-  padding: 12px 20px;
-  border-radius: 90px;
-  box-shadow: 0 10px 28px -12px rgba(17, 37, 62, .5);
-}

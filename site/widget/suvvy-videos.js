@@ -59,28 +59,12 @@
     },
   ];
 
-  var PLAY_SVG = '<svg viewBox="0 0 24 24" fill="#11253E" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>';
   var CHEVRON_L = '<svg viewBox="0 0 24 24" fill="none" stroke="#11253E" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.5 5.5 8 12l6.5 6.5"/></svg>';
   var CHEVRON_R = '<svg viewBox="0 0 24 24" fill="none" stroke="#11253E" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.5 5.5 16 12l-6.5 6.5"/></svg>';
 
   // Автосмена: свой тизер доигрывает до конца (loop не ставим), длинный
   // mp4-предпросмотр обрезаем по таймеру — и переключаемся на следующее видео.
   var PREVIEW_CAP_S = 18;
-
-  function embedUrl(v) {
-    if (v.rutube) return 'https://rutube.ru/play/embed/' + v.rutube + '/?autoplay=1';
-    var u = 'https://vkvideo.ru/video_ext.php?oid=' + v.oid + '&id=' + v.id + '&hd=2&autoplay=1';
-    if (v.list) u += '&list=' + v.list;
-    return u;
-  }
-
-  // Запасной ход: если плеер не поднялся (блокировщик, корпоративная сеть),
-  // даём прямую ссылку на ролик — она открывается отдельной вкладкой.
-  function watchUrl(v) {
-    if (v.rutube) return 'https://rutube.ru/video/' + v.rutube + '/';
-    if (v.oid && v.id) return 'https://vkvideo.ru/video' + v.oid + '_' + v.id;
-    return null;
-  }
 
   function baseUrl() {
     var self = document.currentScript || (function () {
@@ -115,9 +99,6 @@
     return '<span class="svid__tablogobox">' + img + '</span>';
   }
 
-  // Есть ли что показывать по клику: свой ролик ВК или прямой mp4.
-  function hasSource(v) { return !!(v.mp4 || v.rutube || (v.oid && v.id)); }
-
   function stageHtml(v) {
     // Живой беззвучный предпросмотр: свой тизер (v.teaser, относительный путь
     // от виджета) или сам mp4 (v.preview); без него — градиент.
@@ -132,7 +113,7 @@
         '<h3 class="svid__stagetitle">' + v.title + '</h3>' +
         '<p class="svid__stagedesc">' + v.meta + '</p>' +
       '</div>' +
-      (hasSource(v) ? '<span class="svid__play">' + PLAY_SVG + '</span>' : '');
+      '';
   }
 
   function build() {
@@ -159,7 +140,7 @@
         '<p class="svid__sub">Выступаем на главных сценах — от АМОКОНФ до Питерского Промпта</p>' +
         '<div class="svid__panel">' +
           '<div class="svid__stagewrap">' +
-            '<div class="svid__stage" role="button" tabindex="0" aria-label="Смотреть видео">' +
+            '<div class="svid__stage">' +
               stageHtml(VIDEOS[0]) +
             '</div>' +
             nav +
@@ -215,27 +196,6 @@
     });
   }
 
-  function playCurrent(stage) {
-    var v = VIDEOS[current];
-    stage.classList.add('svid__stage--playing');
-    if (v.mp4) {
-      stage.innerHTML = '<video src="' + v.mp4 + '" controls autoplay playsinline></video>';
-    } else {
-      stage.innerHTML = '<iframe src="' + embedUrl(v) + '" allow="autoplay; encrypted-media; fullscreen; picture-in-picture" allowfullscreen frameborder="0"></iframe>';
-      // Плеер могут срезать блокировщик или сеть — тогда через 4с показываем
-      // ссылку «смотреть на площадке», чтобы клик не заканчивался ничем.
-      var url = watchUrl(v);
-      if (url) setTimeout(function () {
-        var fr = stage.querySelector('iframe');
-        if (!fr || !document.contains(fr)) return;
-        try { if (fr.contentWindow && fr.contentWindow.length >= 0) {} } catch (e) {}
-        if (fr.clientHeight > 40) return;
-        stage.insertAdjacentHTML('beforeend',
-          '<a class="svid__fallback" href="' + url + '" target="_blank" rel="noopener">Смотреть на площадке</a>');
-      }, 4000);
-    }
-  }
-
   function wire(s) {
     var stage = s.querySelector('.svid__stage');
 
@@ -257,16 +217,6 @@
     }
 
     armPreview(stage, advance);
-    stage.addEventListener('click', function () {
-      if (!hasSource(VIDEOS[current])) return;
-      if (!stage.classList.contains('svid__stage--playing')) playCurrent(stage);
-    });
-    stage.addEventListener('keydown', function (e) {
-      if ((e.key === 'Enter' || e.key === ' ') && hasSource(VIDEOS[current]) && !stage.classList.contains('svid__stage--playing')) {
-        e.preventDefault();
-        playCurrent(stage);
-      }
-    });
     Array.prototype.forEach.call(s.querySelectorAll('.svid__tab'), function (tab) {
       tab.addEventListener('click', function () {
         setActive(+tab.getAttribute('data-tab'));
